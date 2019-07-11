@@ -1,11 +1,15 @@
 package com.mindaxx.clgk.ui;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
 import com.mindaxx.clgk.R;
+import com.mindaxx.clgk.util.NotificationUtils;
 import com.sunfusheng.FirUpdater;
 import com.sunfusheng.FirUpdaterUtils;
 
@@ -26,14 +30,33 @@ public class ApkUpdaterActivity extends AppCompatActivity {
     }
 
     public void checkApkDown(View view) {
-        FirUpdater firUpdater = new FirUpdater(this);
-        firUpdater.apiToken(API_TOKEN)
-                .appId(APP_ID)
-//                .setForceUpDater(true)
-                .checkVersion();
+//        FirUpdater firUpdater = new FirUpdater(this);
+//        firUpdater.apiToken(API_TOKEN)
+//                .appId(APP_ID)
+////                .setForceUpDater(true)
+//                .checkVersion();
+        onViewClicked();
     }
 
     private void initView() {
         mAppVersion = (TextView) findViewById(R.id.app_version);
+    }
+
+    public void Notify(View view) {
+        NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
+        notificationUtils.sendNotification(1, "xxxxx", "xxxxx", R.mipmap.ic_launcher);
+    }
+
+
+    public void onViewClicked() {
+        try {
+            Intent intent = new Intent();
+            //下面这种方案是直接跳转到当前应用的设置界面。
+            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts("package", getApplication().getPackageName(), null);
+            intent.setData(uri);
+            startActivity(intent);
+        } catch (Exception e) {
+        }
     }
 }
