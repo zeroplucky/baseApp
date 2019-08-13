@@ -1,0 +1,13 @@
+//文件开头配置
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 27
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 27
+        versionCode 60
+        versionName "6.0"
+    }
+}
