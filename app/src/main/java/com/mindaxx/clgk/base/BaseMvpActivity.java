@@ -321,14 +321,12 @@ public abstract class BaseMvpActivity<P extends MvpPresenter> extends SupportAct
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public void onBackPressedSupport() {
         if (this instanceof MainActivity) {
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                moveTaskToBack(false);
-                return true;
-            }
+            moveTaskToBack(false);
+            return;
         }
-        return super.onKeyDown(keyCode, event);
+        super.onBackPressedSupport();
     }
     //=======================================================================================================================
 

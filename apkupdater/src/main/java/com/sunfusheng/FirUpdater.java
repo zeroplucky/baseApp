@@ -105,6 +105,7 @@ public class FirUpdater {
         }).start();
     }
 
+
     private void initFirDialog() {
         firDialog = new FirDialog(forceUpDater);
         firDialog.showAppInfoDialog(context, appInfo);
@@ -171,5 +172,109 @@ public class FirUpdater {
 
     public FirNotification getFirNotification() {
         return firNotification;
+    }
+
+    /*
+     *
+     *
+     * */
+    public void checkVersion(String url, boolean forceUpDater, String appName, String appVersionName, String updateDesc) {
+        if (TextUtils.isEmpty(url)) {
+            Toast.makeText(context, "请设置 url", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        this.appVersionUrl = url;
+
+        if (firDownloader != null && firDownloader.isGoOn()) {
+            Toast.makeText(context, "正在下载【" + appName + "】，请稍后", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (firDownloader == null && FirDownloader.isGoOn) {
+            Toast.makeText(context, "正在下载【" + appName + "】，请稍后", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        FirPermissionHelper.getInstant().requestPermission(context, new FirPermissionHelper.OnPermissionCallback() {
+            @Override
+            public void onGranted() {
+                String apkName = appName + "-" + appVersionName + ".apk";
+                if (TextUtils.isEmpty(apkPath)) {
+                    apkPath = Environment.getExternalStorageDirectory() + File.separator;
+                }
+                FirUpdaterUtils.runOnMainThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        initFirDialog(forceUpDater, appName, appVersionName, updateDesc, apkName);
+                    }
+                });
+            }
+
+            @Override
+            public void onDenied() {
+                Toast.makeText(context, "申请权限未通过", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void initFirDialog(boolean forceUpDater, String appName, String appVersionName, String updateDesc, String apkName) {
+        firDialog = new FirDialog(forceUpDater);
+        firDialog.showAppInfoDialog(context, appName, appVersionName, updateDesc);
+        firDialog.setOnClickDownloadDialogListener(new FirDialog.OnClickDownloadDialogListener() {
+            @Override
+            public void onClickDownload(DialogInterface dialog) {
+                downloadApk(appVersionUrl, appName, apkName, apkPath + apkName);
+            }
+
+            @Override
+            public void onClickBackgroundDownload(DialogInterface dialog) {
+                firNotification = new FirNotification().createBuilder(context, true);
+                firNotification.setContentTitle(appName);
+            }
+
+            @Override
+            public void onClickCancelDownload(DialogInterface dialog) {
+                firDownloader.cancel();
+            }
+        });
+    }
+
+    private void downloadApk(String url, String appName, String apkName, String path) {
+        firDialog.showDownloadDialog(context, 0);
+        firDownloader = new FirDownloader(context.getApplicationContext(), url, apkName, path);
+        firDownloader.setOnDownLoadListener(new FirDownloader.OnDownLoadListener() {
+            @Override
+            public void onProgress(int progress) {
+                firDialog.showDownloadDialog(context, progress);
+                if (firNotification != null) {
+                    firNotification.setContentText("下载更新中..." + progress + "%");
+                    firNotification.notifyNotification(progress);
+                }
+            }
+
+            @Override
+            public void onSuccess() {
+                firDialog.dismissDownloadDialog();
+                if (firNotification != null) {
+                    firNotification.cancel();
+                }
+                firNotification = new FirNotification().createBuilder(context, false);
+                firNotification.setContentIntent(FirUpdaterUtils.getInstallApkIntent(context, path));
+                firNotification.setContentTitle(appName);
+                firNotification.setContentText("下载完成，点击安装");
+                firNotification.notifyNotification();
+                FirUpdaterUtils.installApk(context, path);
+            }
+
+            @Override
+            public void onError() {
+                firDialog.dismissDownloadDialog();
+                if (firNotification != null) {
+                    firNotification.cancel();
+                }
+            }
+        });
+        firDownloader.downloadApk();
     }
 }

@@ -4,9 +4,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.widget.TextView;
+
+
+import com.sunfusheng.firupdater.R;
 
 import java.lang.reflect.Field;
 
@@ -81,20 +85,81 @@ public class FirDialog {
         }
     }
 
+
+    /*
+     * 新增方法
+     * */
+    public void showAppInfoDialog(Context context, String appName, String appVersionName, String updateDesc) {
+        if (alertDialog == null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("名称：").append(appName);
+            sb.append("\n版本：").append(appVersionName);
+            //sb.append("\n文件大小：").append(FirUpdaterUtils.getMeasureSize(appInfo.appSize));
+            if (!TextUtils.isEmpty(updateDesc)) {
+                sb.append("\n\n更新日志：").append(updateDesc);
+            }
+            // 强制下载
+            if (forceUpDater) {
+                alertDialog = new AlertDialog.Builder(context)
+                        .setCancelable(false)
+                        .setTitle("应用更新提示")
+                        .setMessage(sb)
+                        .setPositiveButton("立即更新", (dialog, which) -> {
+                            if (onClickDownloadDialogListener != null) {
+                                onClickDownloadDialogListener.onClickDownload(dialog);
+                            }
+                        }).create();
+            } else {
+                alertDialog = new AlertDialog.Builder(context)
+                        .setCancelable(false)
+                        .setTitle("应用更新提示")
+                        .setMessage(sb)
+                        .setPositiveButton("立即更新", (dialog, which) -> {
+                            if (onClickDownloadDialogListener != null) {
+                                onClickDownloadDialogListener.onClickDownload(dialog);
+                            }
+                        })
+                        .setNegativeButton("稍后", (dialog, which) -> {
+                        }).create();
+            }
+
+            alertDialog.show();
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#333333"));
+            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#9a9a9a"));
+
+            try {
+                Field alert = AlertDialog.class.getDeclaredField("mAlert");
+                alert.setAccessible(true);
+                Object alertController = alert.get(alertDialog);
+                Field messageView = alertController.getClass().getDeclaredField("mMessageView");
+                messageView.setAccessible(true);
+                TextView textView = (TextView) messageView.get(alertController);
+                textView.setTextSize(13);
+                textView.setTextColor(Color.parseColor("#9a9a9a"));
+            } catch (IllegalAccessException e) {
+                FirUpdaterUtils.loggerError(e);
+            } catch (NoSuchFieldException e) {
+                FirUpdaterUtils.loggerError(e);
+            }
+        }
+    }
+
     public void showDownloadDialog(Context context, int progress) {
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(context);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            Drawable drawable = context.getResources().getDrawable(R.drawable.progress_style);
+            progressDialog.setProgressDrawable(drawable);
             progressDialog.setCancelable(false);
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.setMax(100);
             progressDialog.setTitle("正在下载");
-            progressDialog.setButton(DialogInterface.BUTTON_POSITIVE, "后台下载", (dialog, which) -> {
-                if (onClickDownloadDialogListener != null) {
-                    onClickDownloadDialogListener.onClickBackgroundDownload(dialog);
-                }
-            });
             if (!forceUpDater) {
+                progressDialog.setButton(DialogInterface.BUTTON_POSITIVE, "后台下载", (dialog, which) -> {
+                    if (onClickDownloadDialogListener != null) {
+                        onClickDownloadDialogListener.onClickBackgroundDownload(dialog);
+                    }
+                });
                 progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", (dialog, which) -> {
                     if (onClickDownloadDialogListener != null) {
                         onClickDownloadDialogListener.onClickCancelDownload(dialog);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import java.io.InputStream;
@@ -24,14 +25,27 @@ public class FirDownloader {
     private int fileLength;
     private int currLength;
 
-    private boolean isGoOn;
+    public static boolean isGoOn;
     private int lastProgress = 0;
     private OnDownLoadListener onDownLoadListener;
+
+    private String url;
+    private String apkName;
+    private String path;
 
     public FirDownloader(Context context, FirAppInfo.AppInfo appInfo) {
         this.context = context;
         this.appInfo = appInfo;
         this.fileLength = appInfo.appSize;
+        this.url = appInfo.appInstallUrl;
+        this.path = appInfo.apkLocalUrl;
+    }
+
+    public FirDownloader(Context context, String url, String apkName, String path) {
+        this.context = context;
+        this.url = url;
+        this.apkName = apkName;
+        this.path = path;
     }
 
     public void downloadApk() {
@@ -39,16 +53,20 @@ public class FirDownloader {
             HttpURLConnection conn = null;
             try {
                 isGoOn = true;
-                conn = (HttpURLConnection) new URL(appInfo.appInstallUrl).openConnection();
+                conn = (HttpURLConnection) new URL(url).openConnection();
                 conn.setConnectTimeout(10000);
                 conn.setRequestMethod("GET");
-                currLength = FirUpdaterUtils.getCurrLengthValue(context, appInfo.apkName);
-                conn.setRequestProperty("Range", "bytes=" + currLength + "-" + fileLength);
+                currLength = FirUpdaterUtils.getCurrLengthValue(context, apkName);
+                conn.setRequestProperty("Accept-Encoding", "identity");
+                conn.setRequestProperty("Range", "bytes=" + currLength + "-");
                 FirUpdaterUtils.logger("currLength: " + currLength + " fileLength: " + fileLength);
 
                 if (conn.getResponseCode() == HttpURLConnection.HTTP_PARTIAL) {
+                    if (fileLength == 0) {
+                        fileLength = conn.getContentLength();
+                    }
                     InputStream is = conn.getInputStream();
-                    RandomAccessFile raf = new RandomAccessFile(appInfo.apkLocalUrl, "rwd");
+                    RandomAccessFile raf = new RandomAccessFile(path, "rwd");
                     raf.setLength(fileLength);
                     raf.seek(currLength);
 
@@ -76,9 +94,9 @@ public class FirDownloader {
                     FirUpdaterUtils.closeQuietly(is, raf);
 
                     if (!isGoOn && currLength < fileLength) {
-                        FirUpdaterUtils.putCurrLengthValue(context, appInfo.apkName, currLength);
+                        FirUpdaterUtils.putCurrLengthValue(context, apkName, currLength);
                     } else {
-                        FirUpdaterUtils.putCurrLengthValue(context, appInfo.apkName, 0);
+                        FirUpdaterUtils.putCurrLengthValue(context, apkName, 0);
                         handler.sendEmptyMessage(100);
                         handler.sendEmptyMessage(STATE_SUCCESS);
                     }
@@ -88,7 +106,7 @@ public class FirDownloader {
                 conn.disconnect();
             } catch (Exception e) {
                 FirUpdaterUtils.loggerError(e);
-                FirUpdaterUtils.putCurrLengthValue(context, appInfo.apkName, 0);
+                FirUpdaterUtils.putCurrLengthValue(context, apkName, 0);
                 handler.sendEmptyMessage(STATE_ERROR);
             } finally {
                 isGoOn = false;

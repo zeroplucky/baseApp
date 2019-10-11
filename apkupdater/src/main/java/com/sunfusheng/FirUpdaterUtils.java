@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -141,7 +140,6 @@ public class FirUpdaterUtils {
             if (!apkFile.exists()) {
                 throw new FileNotFoundException("Apk file does not exist!");
             }
-
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             Uri apkUri;

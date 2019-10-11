@@ -10,8 +10,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
+
 import static android.os.Build.VERSION.SDK_INT;
-import static android.support.v4.app.NotificationCompat.VISIBILITY_PUBLIC;
 
 /**
  * @author sunfusheng on 2018/2/17.
@@ -19,7 +19,7 @@ import static android.support.v4.app.NotificationCompat.VISIBILITY_PUBLIC;
 public class FirNotification {
     private static int NOTIFICATION_ID = 1234;
     private static String CHANNEL_ID = "FirNotification";
-    private static String CHANNEL_NAME = "FirUpdater";
+    private static String CHANNEL_NAME = "下载通知";
     private static int CHANNEL_SEQUENCE = 0;
     private static String LAST_CHANNEL_ID = CHANNEL_ID;
 
@@ -45,7 +45,7 @@ public class FirNotification {
         builder.setWhen(System.currentTimeMillis());
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setFullScreenIntent(pendingIntent, false);
-        builder.setVisibility(VISIBILITY_PUBLIC);
+        builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
         builder.setContentIntent(pendingIntent);
         builder.setVibrate(new long[]{0});
         builder.setPriority(NotificationCompat.PRIORITY_LOW);
