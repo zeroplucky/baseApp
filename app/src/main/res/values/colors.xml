@@ -22,6 +22,7 @@
     <color name="text_red">#f51616</color>
     <color name="text_white">#ffffff</color>
     <color name="text_bg_grey">#559e9e9e</color>
+    <color name="text_bg_grey2">#55d7d7d7</color>
 
     <color name="lan_enterprise_list_adapter_item">#5C96CE</color>
     <color name="cheng_enterprise_list_adapter_item">#E19C5E</color>

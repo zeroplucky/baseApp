@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line_div_string" />
+
+    <com.chaychan.library.BottomBarLayout
+        android:id="@+id/barLayout"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_gravity="center"
+        android:background="@color/tab_gb"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:smoothScroll="false">
+
+        <com.chaychan.library.BottomBarItem
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:iconHeight="20dp"
+            app:iconNormal="@drawable/bottom_bar_3"
+            app:iconSelected="@drawable/bottom_bar_2"
+            app:iconWidth="20dp"
+            app:itemMarginTop="6dp"
+            app:itemText="信息查询"
+            app:itemTextSize="10dp"
+            app:textColorNormal="@color/tab_normal_color"
+            app:textColorSelected="@color/tab_selected_color" />
+
+        <com.chaychan.library.BottomBarItem
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:iconHeight="20dp"
+            app:iconNormal="@drawable/bottom_bar_5"
+            app:iconSelected="@drawable/bottom_bar_4"
+            app:iconWidth="20dp"
+            app:itemMarginTop="6dp"
+            app:itemText="我的"
+            app:itemTextSize="10dp"
+            app:textColorNormal="@color/tab_normal_color"
+            app:textColorSelected="@color/tab_selected_color" />
+
+    </com.chaychan.library.BottomBarLayout>
+</LinearLayout>

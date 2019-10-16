@@ -51,21 +51,6 @@
         android:layout_height="1px"
         android:background="#559e9e9e" />
 
-    <TextView
-        android:id="@+id/show_time"
-        android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:gravity="center"
-        android:text="1999-10-10 10:10"
-        android:textColor="@color/pickerview_timebtn_nor"
-        android:textSize="14dp"
-        android:visibility="gone" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#559e9e9e" />
-
     <LinearLayout
         android:id="@+id/timepicker"
         android:layout_width="match_parent"
@@ -74,41 +59,11 @@
         android:orientation="horizontal">
 
         <com.contrarywind.view.WheelView
-            android:id="@+id/year"
+            android:id="@+id/options1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.96" />
 
-        <com.contrarywind.view.WheelView
-            android:id="@+id/month"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <com.contrarywind.view.WheelView
-            android:id="@+id/day"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <com.contrarywind.view.WheelView
-            android:id="@+id/hour"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <com.contrarywind.view.WheelView
-            android:id="@+id/min"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <com.contrarywind.view.WheelView
-            android:id="@+id/second"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
     </LinearLayout>
-
 
 </LinearLayout>

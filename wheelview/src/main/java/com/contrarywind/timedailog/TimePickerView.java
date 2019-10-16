@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.contrarywind.view.R;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -25,6 +26,7 @@ public class TimePickerView extends BasePickerView implements View.OnClickListen
     private WheelTime wheelTime; //自定义控件
     private static final String TAG_SUBMIT = "submit";
     private static final String TAG_CANCEL = "cancel";
+    private TextView showTime;
 
     public TimePickerView(PickerOptions pickerOptions) {
         super(pickerOptions.context);
@@ -42,7 +44,8 @@ public class TimePickerView extends BasePickerView implements View.OnClickListen
             //顶部标题
             TextView tvTitle = (TextView) findViewById(R.id.tvTitle);
             RelativeLayout rv_top_bar = (RelativeLayout) findViewById(R.id.rv_topbar);
-
+            showTime = (TextView) findViewById(R.id.show_time);
+            showTime.setVisibility(mPickerOptions.type[4] ? View.VISIBLE : View.GONE);
             //确定和取消按钮
             Button btnSubmit = (Button) findViewById(R.id.btnSubmit);
             Button btnCancel = (Button) findViewById(R.id.btnCancel);
@@ -62,7 +65,7 @@ public class TimePickerView extends BasePickerView implements View.OnClickListen
             btnSubmit.setTextColor(mPickerOptions.textColorConfirm);
             btnCancel.setTextColor(mPickerOptions.textColorCancel);
             tvTitle.setTextColor(mPickerOptions.textColorTitle);
-            rv_top_bar.setBackgroundColor(mPickerOptions.bgColorTitle);
+            // rv_top_bar.setBackgroundColor(mPickerOptions.bgColorTitle);
 
             //设置文字大小
             btnSubmit.setTextSize(mPickerOptions.textSizeSubmitCancel);
@@ -77,23 +80,28 @@ public class TimePickerView extends BasePickerView implements View.OnClickListen
         timePickerView.setBackgroundColor(mPickerOptions.bgColorWheel);
 
         initWheelTime(timePickerView);
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分");
+        showTime.setText(format.format(new Date()));
     }
 
     private void initWheelTime(LinearLayout timePickerView) {
         wheelTime = new WheelTime(timePickerView, mPickerOptions.type, mPickerOptions.textGravity, mPickerOptions.textSizeContent);
-        if (mPickerOptions.timeSelectChangeListener != null) {
-            wheelTime.setSelectChangeCallback(new ISelectTimeCallback() {
-                @Override
-                public void onTimeSelectChanged() {
-                    try {
-                        Date date = WheelTime.dateFormat.parse(wheelTime.getTime());
+        wheelTime.setSelectChangeCallback(new ISelectTimeCallback() {
+            @Override
+            public void onTimeSelectChanged() {
+                try {
+                    Date date = WheelTime.dateFormat.parse(wheelTime.getTime());
+                    if (mPickerOptions.timeSelectChangeListener != null) {
                         mPickerOptions.timeSelectChangeListener.onTimeSelectChanged(date);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
                     }
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分");
+                    showTime.setText(format.format(date));
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-            });
-        }
+            }
+        });
 
         wheelTime.setLunarMode(mPickerOptions.isLunarCalendar);
 
@@ -156,7 +164,6 @@ public class TimePickerView extends BasePickerView implements View.OnClickListen
     private void setRange() {
         wheelTime.setStartYear(mPickerOptions.startYear);
         wheelTime.setEndYear(mPickerOptions.endYear);
-
     }
 
     /**

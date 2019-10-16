@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.mindaxx.clgk.ui.ApkUpdaterActivity">
+    tools:context="com.mindaxx.zhangp.ui.activity.ApkUpdaterActivity">
 
     <TextView
         android:id="@+id/app_version"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:onClick="Notify"
-        android:gravity="center_vertical" />
+        android:gravity="center_vertical"
+        android:onClick="Notify" />
 
     <TextView
         android:layout_width="match_parent"
@@ -20,4 +20,11 @@
         android:gravity="center_vertical"
         android:onClick="checkApkDown"
         android:text="检查更新" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:onClick="onViewClicked"
+        android:text="设置" />
 </LinearLayout>
