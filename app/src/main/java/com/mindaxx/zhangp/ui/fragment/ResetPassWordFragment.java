@@ -80,11 +80,20 @@ public class ResetPassWordFragment extends BaseMvpFragment implements TimerUtil.
 
     @Override
     public void lintenerOnTick(Long downTime) {
-
+        btn_get_code.setText("重新获取(" + downTime + ")");
     }
 
     @Override
     public void lintenerOnFinish() {
         btn_get_code.setEnabled(true);
+        btn_get_code.setText("获取验证码");
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (!TimerUtil.getTimerStatus()) {
+            TimerUtil.getInstence().cancle2();
+        }
+        super.onDestroyView();
     }
 }

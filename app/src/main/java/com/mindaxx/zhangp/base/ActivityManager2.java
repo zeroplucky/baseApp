@@ -31,8 +31,8 @@ public class ActivityManager2 {
 
 
     /*
-    * 从栈中移除
-    * */
+     * 从栈中移除
+     * */
     public static void removeActivity(Activity activity) {
         try {
             if (activityStack == null) return;
@@ -59,7 +59,7 @@ public class ActivityManager2 {
                 @Override
                 public void run() {
                     Iterator<Activity> iterator = activities.iterator();
-                    if (iterator.hasNext()) {
+                    while (iterator.hasNext()) {
                         iterator.next().finish();
                         try {
                             Thread.sleep(100);
@@ -67,9 +67,9 @@ public class ActivityManager2 {
                             e.printStackTrace();
                         }
                     }
+                    activityStack.removeAll(activities);
                 }
             }).start();
-            activityStack.removeAll(activities);
         } catch (Exception e) {
             e.printStackTrace();
         }

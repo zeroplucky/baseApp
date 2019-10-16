@@ -2,10 +2,6 @@ package com.mindaxx.zhangp.util;
 
 import android.os.CountDownTimer;
 
-/**
- * Created by "liulihu" on 2017/10/31 0031.
- * email:511421121@qq.com
- */
 public class TimerUtil extends CountDownTimer {
 
     private static boolean timeOut = true;// 时间到
@@ -34,7 +30,7 @@ public class TimerUtil extends CountDownTimer {
      */
     public static TimerUtil getInstence() {
         if (mInsetnce == null) {
-            mInsetnce = new TimerUtil(60000, 1000);
+            mInsetnce = new TimerUtil(60 * 1000 + 300, 1000);
         }
         return mInsetnce;
     }
@@ -58,6 +54,14 @@ public class TimerUtil extends CountDownTimer {
             if (onDownTimerListener != null) {
                 onDownTimerListener.lintenerOnStart();
             }
+        }
+    }
+
+    public void cancle2() {
+        if (!timeOut) {
+            mInsetnce.cancel();
+            timeOut = true;
+            mInsetnce = null;
         }
     }
 
