@@ -4,14 +4,17 @@ package com.mindaxx.zhangp.ui.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.svprogresshud.WaitingView;
 import com.contrarywind.SelectDialog;
+import com.contrarywind.UniversalBottomLayout;
 import com.contrarywind.timedailog.OnTimeSelectListener;
 import com.contrarywind.timedailog.TimePickerBuilder;
+import com.contrarywind.view.WheelView;
 import com.mindaxx.zhangp.R;
 import com.mindaxx.zhangp.base.BaseMvpFragment;
 import com.mindaxx.zhangp.bean.event.KeyboardChangeEvent;
@@ -21,6 +24,7 @@ import com.mindaxx.zhangp.widget.KeyboardChangeListener;
 import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -137,9 +141,9 @@ public class AFragment extends BaseMvpFragment {
             KeyboardUtils.hideSoftInput(getActivity());
             return;
         }
-        new SelectDialog(getContext(), content).setOnseletListener2(new SelectDialog.OnseletListener2() {
+        new SelectDialog(getContext()).setAdapter(Arrays.asList(content)).setOnseletListener2(new SelectDialog.OnseletListener2() {
             @Override
-            public void onItemSelect(String content) {
+            public void onItemSelect(int index) {
                 Toast.makeText(mContext, "" + content, Toast.LENGTH_SHORT).show();
             }
         }).show();
@@ -168,6 +172,29 @@ public class AFragment extends BaseMvpFragment {
     private String getTime(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分");
         return format.format(date);
+    }
+
+    /*
+     *
+     * */
+    private void MultiSelect() {
+        new UniversalBottomLayout(getContext()) {
+            @Override
+            public int setLayout() {
+                return R.layout.multi_select_dialog_;
+            }
+
+            @Override
+            public void initData(View view) {
+                Button btnSubmit = view.findViewById(R.id.btnSubmit);
+                Button btnCancel = view.findViewById(R.id.btnCancel);
+                WheelView op1 = view.findViewById(R.id.options1);
+                WheelView op2 = view.findViewById(R.id.options2);
+                WheelView op3 = view.findViewById(R.id.options3);
+
+
+            }
+        };
     }
 
 }

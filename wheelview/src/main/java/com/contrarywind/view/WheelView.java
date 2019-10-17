@@ -95,6 +95,7 @@ public class WheelView extends View {
     //初始化默认选中项
     private int initPosition;
 
+    private int lastSelectItem = -2;
     //选中的Item是第几个
     private int selectedItem;
     private int preCurrentIndex;
@@ -181,7 +182,7 @@ public class WheelView extends View {
         handler = new MessageHandler(this);
         gestureDetector = new GestureDetector(context, new LoopViewGestureListener(this));
         gestureDetector.setIsLongpressEnabled(false);
-        isLoop = true;
+        isLoop = false;
 
         totalScrollY = 0;
         initPosition = -1;
@@ -309,12 +310,17 @@ public class WheelView extends View {
     }
 
     public final void setCurrentItem(int currentItem) {
+
+        if (adapter == null) return;
+        if (adapter.getItemsCount() == 0) return;
+
         //不添加这句,当这个wheelView不可见时,默认都是0,会导致获取到的时间错误
         this.selectedItem = currentItem;
         this.initPosition = currentItem;
         totalScrollY = 0;//回归顶部，不然重设setCurrentItem的话位置会偏移的，就会显示出不对位置的数据
         invalidate();
     }
+
 
     public final void setOnItemSelectedListener(OnItemSelectedListener OnItemSelectedListener) {
         this.onItemSelectedListener = OnItemSelectedListener;
