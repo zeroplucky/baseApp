@@ -11,10 +11,15 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.OnPhotoTapListener;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.mindaxx.zhangp.R;
-import com.mindaxx.zhangp.imageloader.ImageLoader2;
+import com.mindaxx.zhangp.imageloader.GlideImageLoader;
+import com.mindaxx.zhangp.imageloader.GlideImageLoader2;
+import com.mindaxx.zhangp.imageloader.OnProgressListener;
+import com.mindaxx.zhangp.imageloader.view.CircleProgressView;
+import com.mindaxx.zhangp.imageloader.view.GlideImageView;
 
 /**
  * 显示图片
@@ -22,10 +27,10 @@ import com.mindaxx.zhangp.imageloader.ImageLoader2;
 public class PictureDialog extends Dialog implements FingerPanGroup.onAlphaChangedListener {
 
     private Window window;
-    private PhotoView imageView;
+    private GlideImageView imageView;
     private FingerPanGroup group;
     private String imageUrl;
-
+    CircleProgressView progressView;
 
     public PictureDialog(@NonNull Context context, String imageUrl) {
         super(context, R.style.photoWindowStyle);
@@ -46,12 +51,20 @@ public class PictureDialog extends Dialog implements FingerPanGroup.onAlphaChang
         params.width = WindowManager.LayoutParams.MATCH_PARENT;
         params.height = WindowManager.LayoutParams.MATCH_PARENT;
         window.setAttributes(params);
-
         imageView = parent.findViewById(R.id.preview_image);
+        progressView = findViewById(R.id.progressView);
         group = parent.findViewById(R.id.group);
-
-        ImageLoader2.loadImg(imageUrl, imageView);
-
+        imageView.load(imageUrl, 0, new OnProgressListener() {
+            @Override
+            public void onProgress(boolean isComplete, int percentage, long bytesRead, long totalBytes) {
+                if (isComplete) {
+                    progressView.setVisibility(View.GONE);
+                } else {
+                    progressView.setVisibility(View.VISIBLE);
+                    progressView.setProgress(percentage);
+                }
+            }
+        });
         group.setOnAlphaChangeListener(this);
         imageView.setOnPhotoTapListener(new OnPhotoTapListener() {
             @Override

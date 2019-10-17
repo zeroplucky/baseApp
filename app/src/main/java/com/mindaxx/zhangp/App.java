@@ -4,13 +4,20 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
+import com.bumptech.glide.load.model.GlideUrl;
 import com.minda.logger.AndroidLogAdapter;
 import com.minda.logger.DiskLogAdapter;
 import com.minda.logger.Logger;
+import com.mindaxx.zhangp.http.HttpManager;
+import com.mindaxx.zhangp.imageloader.ProgressManager;
 import com.mindaxx.zhangp.util.SpUtil;
 import com.mindaxx.zhangp.util.UncaughtExceptionHandlerImpl;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
+
+import java.io.InputStream;
 
 
 /**
@@ -19,15 +26,20 @@ import com.tencent.bugly.beta.Beta;
 
 public class App extends Application {
 
+    public static Context mContext;
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
+        mContext = base;
         MultiDex.install(base);
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        Glide.get(this).register(GlideUrl.class, InputStream.class,
+                new OkHttpUrlLoader.Factory(ProgressManager.getOkHttpClient()));
         SpUtil.init(getApplicationContext());
         initBugly();
         initLogger();

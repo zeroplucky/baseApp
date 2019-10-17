@@ -1,36 +1,134 @@
 package com.mindaxx.zhangp.imageloader;
 
-import android.app.Activity;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
+import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.lzy.imagepicker.loader.ImageLoader;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.Transformation;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.DrawableImageViewTarget;
 
-import java.io.File;
+import java.lang.ref.WeakReference;
 
 /**
- * ================================================
- * 作    者：jeasonlzy（廖子尧 Github地址：https://github.com/jeasonlzy0216
- * 版    本：1.0
- * 创建日期：2016/5/19
- * 描    述：
- * 修订历史：
- * ================================================
+ * @author by sunfusheng on 2017/6/6.
  */
-public class GlideImageLoader implements ImageLoader {
+public class GlideImageLoader {
 
-    @Override
-    public void displayImage(Activity activity, String path, ImageView imageView, int width, int height) {
+    protected static final String ANDROID_RESOURCE = "android.resource://";
+    protected static final String FILE = "file://";
+    protected static final String SEPARATOR = "/";
 
-        Glide.with(activity)                             //配置上下文
-                .load(Uri.fromFile(new File(path)))      //设置图片路径(fix #8,文件名包含%符号 无法识别和显示)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)//缓存全尺寸
-                .into(imageView);
+    private String url;
+    private WeakReference<ImageView> imageViewWeakReference;
+    private RequestManager manager;
+    private DrawableTypeRequest drawableTypeRequest;
+
+    public static GlideImageLoader create(ImageView imageView) {
+        return new GlideImageLoader(imageView);
     }
 
-    @Override
-    public void clearMemoryCache() {
+    private GlideImageLoader(ImageView imageView) {
+        imageViewWeakReference = new WeakReference<>(imageView);
+        manager = Glide.with(getContext());
+    }
+
+    public ImageView getImageView() {
+        if (imageViewWeakReference != null) {
+            return imageViewWeakReference.get();
+        }
+        return null;
+    }
+
+    public Context getContext() {
+        if (getImageView() != null) {
+            return getImageView().getContext();
+        }
+        return null;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    protected Uri resId2Uri(@DrawableRes int resId) {
+        return Uri.parse(ANDROID_RESOURCE + getContext().getPackageName() + SEPARATOR + resId);
+    }
+
+    public GlideImageLoader load(@DrawableRes int resId, @DrawableRes int placeholder, Transformation<Bitmap>... bitmapTransformations) {
+        return loadImage(resId2Uri(resId), placeholder, bitmapTransformations);
+    }
+
+    protected DrawableTypeRequest loadImage(Object obj) {
+        if (obj instanceof String) {
+            url = (String) obj;
+        }
+        return manager.load(obj);
+    }
+
+    public DrawableTypeRequest getGlideRequest() {
+        if (drawableTypeRequest == null) {
+            drawableTypeRequest = Glide.with(getContext()).load(url);
+        }
+        return drawableTypeRequest;
+    }
+
+    public GlideImageLoader loadImage(Object obj, @DrawableRes int placeholder, Transformation<Bitmap>... bitmapTransformations) {
+        drawableTypeRequest = loadImage(obj);
+        if (placeholder != 0) {
+            drawableTypeRequest.placeholder(placeholder);
+        }
+        if (bitmapTransformations != null) {
+            drawableTypeRequest.bitmapTransform(bitmapTransformations);
+        }
+        drawableTypeRequest.into(new GlideImageViewTarget(getImageView()));
+        return this;
+    }
+
+    public GlideImageLoader listener(Object obj, OnProgressListener onProgressListener) {
+        if (obj instanceof String) {
+            url = (String) obj;
+        }
+        ProgressManager.addListener(url, onProgressListener);
+        return this;
+    }
+
+    private class GlideImageViewTarget extends DrawableImageViewTarget {
+        GlideImageViewTarget(ImageView view) {
+            super(view);
+        }
+
+        @Override
+        public void onLoadStarted(Drawable placeholder) {
+            super.onLoadStarted(placeholder);
+        }
+
+        @Override
+        public void onLoadFailed(Exception e, Drawable errorDrawable) {
+            OnProgressListener onProgressListener = ProgressManager.getProgressListener(getUrl());
+            if (onProgressListener != null) {
+                onProgressListener.onProgress(true, 100, 0, 0);
+                ProgressManager.removeListener(getUrl());
+            }
+            super.onLoadFailed(e, errorDrawable);
+        }
+
+        @Override
+        public void onResourceReady(Drawable resource, GlideAnimation<? super Drawable> glideAnimation) {
+            OnProgressListener onProgressListener = ProgressManager.getProgressListener(getUrl());
+            if (onProgressListener != null) {
+                onProgressListener.onProgress(true, 100, 0, 0);
+                ProgressManager.removeListener(getUrl());
+            }
+            super.onResourceReady(resource, glideAnimation);
+        }
     }
 }

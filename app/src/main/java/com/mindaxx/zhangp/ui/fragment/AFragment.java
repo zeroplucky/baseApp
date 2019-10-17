@@ -20,6 +20,7 @@ import com.mindaxx.zhangp.base.BaseMvpFragment;
 import com.mindaxx.zhangp.bean.event.KeyboardChangeEvent;
 import com.mindaxx.zhangp.util.KeyboardUtils;
 import com.mindaxx.zhangp.widget.KeyboardChangeListener;
+import com.mindaxx.zhangp.widget.PictureDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -40,6 +41,8 @@ public class AFragment extends BaseMvpFragment {
     ImageView btnBack;
     @BindView(R.id.title_name)
     TextView titleName;
+
+    private String imageUrl = "http://seopic.699pic.com/photo/50037/6974.jpg_wh1200.jpg";
 
     public static AFragment newInstance() {
         Bundle args = new Bundle();
@@ -78,7 +81,7 @@ public class AFragment extends BaseMvpFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.next:
-                WaitingView.showSuccess(getContext(), "提交成功");
+                new PictureDialog(getContext(), imageUrl).show();
                 break;
             case R.id.country:
                 selectOne(new String[]{"中国", "外国"});

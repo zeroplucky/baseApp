@@ -14,7 +14,7 @@ import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 import com.lzy.imagepicker.view.CropImageView;
 import com.mindaxx.zhangp.R;
-import com.mindaxx.zhangp.imageloader.GlideImageLoader;
+import com.mindaxx.zhangp.imageloader.GlideImageLoader2;
 
 import java.util.ArrayList;
 
@@ -33,7 +33,7 @@ public class ImageDemoActivity extends AppCompatActivity implements ImagePickerA
 
     private void initWidget() {
         ImagePicker imagePicker = ImagePicker.getInstance();
-        imagePicker.setImageLoader(new GlideImageLoader());   //设置图片加载器
+        imagePicker.setImageLoader(new GlideImageLoader2());   //设置图片加载器
         imagePicker.setShowCamera(true);                      //显示拍照按钮
         imagePicker.setCrop(true);                           //允许裁剪（单选才有效）
         imagePicker.setSaveRectangle(true);                   //是否按矩形区域保存

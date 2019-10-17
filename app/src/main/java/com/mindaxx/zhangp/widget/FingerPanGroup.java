@@ -10,9 +10,11 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.github.chrisbanes.photoview.PhotoView;
 import com.mindaxx.zhangp.R;
+import com.mindaxx.zhangp.imageloader.view.GlideImageView;
 import com.nineoldandroids.view.ViewHelper;
 
 
@@ -31,7 +33,7 @@ public class FingerPanGroup extends FrameLayout {
     private int fadeIn = R.anim.fade_in;
     private int fadeOut = R.anim.fade_out;
     private onAlphaChangedListener mOnAlphaChangedListener;
-    private PhotoView photoView;
+    private GlideImageView photoView;
 
     public FingerPanGroup(Context context) {
         this(context, null);
@@ -48,7 +50,7 @@ public class FingerPanGroup extends FrameLayout {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        photoView = (PhotoView) getChildAt(0);
+        photoView = (GlideImageView) ((RelativeLayout) getChildAt(0)).getChildAt(0);
     }
 
 

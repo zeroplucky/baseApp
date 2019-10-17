@@ -1,4 +1,4 @@
-package com.mindaxx.zhangp.imageloader;
+package com.mindaxx.zhangp.imageloader.transform;
 
 import android.content.Context;
 import android.graphics.Bitmap;
