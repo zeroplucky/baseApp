@@ -10,7 +10,9 @@ import com.lzy.imagepicker.loader.ImageLoader;
 
 import java.io.File;
 
-
+/*
+ * 修改
+ * */
 public class GlideImageLoader2 implements ImageLoader {
 
     @Override
