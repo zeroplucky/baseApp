@@ -1,4 +1,13 @@
-include ':app', ':imagepicker', ':bottombar',
-        ':waitingview', ':logger',
-        ':statusview', ':apkupdater',
-        ':permission', ':autosize', ':wheelview', ':okgo'
+include ':app', ':imagepicker', ':bottombar', ':waitingview', ':logger', ':statusview',
+        ':apkupdater', ':permission', ':autosize', ':wheelview', ':okgo'
+
+project(':imagepicker').projectDir = new File('library/imagepicker')
+project(':bottombar').projectDir = new File('library/bottombar')
+project(':waitingview').projectDir = new File('library/waitingview')
+project(':logger').projectDir = new File('library/logger')
+project(':statusview').projectDir = new File('library/statusview')
+project(':apkupdater').projectDir = new File('library/apkupdater')
+project(':permission').projectDir = new File('library/permission')
+project(':autosize').projectDir = new File('library/autosize')
+project(':wheelview').projectDir = new File('library/wheelview')
+project(':okgo').projectDir = new File('library/okgo')

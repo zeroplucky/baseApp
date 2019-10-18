@@ -8,16 +8,17 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/apkupdater" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/autosize" />
-            <option value="$PROJECT_DIR$/bottombar" />
-            <option value="$PROJECT_DIR$/imagepicker" />
-            <option value="$PROJECT_DIR$/logger" />
-            <option value="$PROJECT_DIR$/permission" />
-            <option value="$PROJECT_DIR$/statusview" />
-            <option value="$PROJECT_DIR$/waitingview" />
-            <option value="$PROJECT_DIR$/wheelview" />
+            <option value="$PROJECT_DIR$/library/apkupdater" />
+            <option value="$PROJECT_DIR$/library/autosize" />
+            <option value="$PROJECT_DIR$/library/bottombar" />
+            <option value="$PROJECT_DIR$/library/imagepicker" />
+            <option value="$PROJECT_DIR$/library/logger" />
+            <option value="$PROJECT_DIR$/library/okgo" />
+            <option value="$PROJECT_DIR$/library/permission" />
+            <option value="$PROJECT_DIR$/library/statusview" />
+            <option value="$PROJECT_DIR$/library/waitingview" />
+            <option value="$PROJECT_DIR$/library/wheelview" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
