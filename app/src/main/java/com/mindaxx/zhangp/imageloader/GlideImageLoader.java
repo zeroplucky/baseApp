@@ -9,12 +9,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
-import com.bumptech.glide.DrawableTypeRequest;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.Transformation;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
+import com.bumptech.glide.request.transition.Transition;
 
 import java.lang.ref.WeakReference;
 
@@ -29,8 +26,7 @@ public class GlideImageLoader {
 
     private String url;
     private WeakReference<ImageView> imageViewWeakReference;
-    private RequestManager manager;
-    private DrawableTypeRequest drawableTypeRequest;
+    private GlideRequest<Drawable> glideRequest;
 
     public static GlideImageLoader create(ImageView imageView) {
         return new GlideImageLoader(imageView);
@@ -38,7 +34,7 @@ public class GlideImageLoader {
 
     private GlideImageLoader(ImageView imageView) {
         imageViewWeakReference = new WeakReference<>(imageView);
-        manager = Glide.with(getContext());
+        glideRequest = GlideApp.with(getContext()).asDrawable();
     }
 
     public ImageView getImageView() {
@@ -59,37 +55,40 @@ public class GlideImageLoader {
         return url;
     }
 
+    public GlideRequest getGlideRequest() {
+        if (glideRequest == null) {
+            glideRequest = GlideApp.with(getContext()).asDrawable();
+        }
+        return glideRequest;
+    }
+
     protected Uri resId2Uri(@DrawableRes int resId) {
         return Uri.parse(ANDROID_RESOURCE + getContext().getPackageName() + SEPARATOR + resId);
     }
 
-    public GlideImageLoader load(@DrawableRes int resId, @DrawableRes int placeholder, Transformation<Bitmap>... bitmapTransformations) {
-        return loadImage(resId2Uri(resId), placeholder, bitmapTransformations);
+    public GlideImageLoader load(@DrawableRes int resId, @DrawableRes int placeholder, @NonNull Transformation<Bitmap> transformation) {
+        return loadImage(resId2Uri(resId), placeholder, transformation);
     }
 
-    protected DrawableTypeRequest loadImage(Object obj) {
+    protected GlideRequest<Drawable> loadImage(Object obj) {
         if (obj instanceof String) {
             url = (String) obj;
         }
-        return manager.load(obj);
+        return glideRequest.load(obj);
     }
 
-    public DrawableTypeRequest getGlideRequest() {
-        if (drawableTypeRequest == null) {
-            drawableTypeRequest = Glide.with(getContext()).load(url);
-        }
-        return drawableTypeRequest;
-    }
 
-    public GlideImageLoader loadImage(Object obj, @DrawableRes int placeholder, Transformation<Bitmap>... bitmapTransformations) {
-        drawableTypeRequest = loadImage(obj);
+    public GlideImageLoader loadImage(Object obj, @DrawableRes int placeholder, Transformation<Bitmap> transformation) {
+        glideRequest = loadImage(obj);
         if (placeholder != 0) {
-            drawableTypeRequest.placeholder(placeholder);
+            glideRequest = glideRequest.placeholder(placeholder);
         }
-        if (bitmapTransformations != null) {
-            drawableTypeRequest.bitmapTransform(bitmapTransformations);
+
+        if (transformation != null) {
+            glideRequest = glideRequest.transform(transformation);
         }
-        drawableTypeRequest.into(new GlideImageViewTarget(getImageView()));
+
+        glideRequest.into(new GlideImageViewTarget(getImageView()));
         return this;
     }
 
@@ -112,23 +111,23 @@ public class GlideImageLoader {
         }
 
         @Override
-        public void onLoadFailed(Exception e, Drawable errorDrawable) {
+        public void onLoadFailed(@Nullable Drawable errorDrawable) {
             OnProgressListener onProgressListener = ProgressManager.getProgressListener(getUrl());
             if (onProgressListener != null) {
                 onProgressListener.onProgress(true, 100, 0, 0);
                 ProgressManager.removeListener(getUrl());
             }
-            super.onLoadFailed(e, errorDrawable);
+            super.onLoadFailed(errorDrawable);
         }
 
         @Override
-        public void onResourceReady(Drawable resource, GlideAnimation<? super Drawable> glideAnimation) {
+        public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
             OnProgressListener onProgressListener = ProgressManager.getProgressListener(getUrl());
             if (onProgressListener != null) {
                 onProgressListener.onProgress(true, 100, 0, 0);
                 ProgressManager.removeListener(getUrl());
             }
-            super.onResourceReady(resource, glideAnimation);
+            super.onResourceReady(resource, transition);
         }
     }
 }

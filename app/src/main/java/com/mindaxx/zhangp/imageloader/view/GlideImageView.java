@@ -10,12 +10,12 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.mindaxx.zhangp.imageloader.GlideImageLoader;
 import com.mindaxx.zhangp.imageloader.OnProgressListener;
-import com.mindaxx.zhangp.imageloader.transform.CircleBitmapTransformation;
-import com.mindaxx.zhangp.imageloader.transform.GlideTransform;
-import com.mindaxx.zhangp.imageloader.transform.RoundBitmapTransformation;
+import com.mindaxx.zhangp.imageloader.transform.CircleTransformation;
+import com.mindaxx.zhangp.imageloader.transform.RadiusTransformation;
 
 /**
  * @author sunfusheng on 2017/11/10.
@@ -51,13 +51,18 @@ public class GlideImageView extends PhotoView {
         return imageLoader;
     }
 
+    public GlideImageView apply(RequestOptions options) {
+        getImageLoader().getGlideRequest().apply(options);
+        return this;
+    }
+
     public GlideImageView centerCrop() {
-        getImageLoader().getImageView().setScaleType(ScaleType.CENTER_CROP);
+        getImageLoader().getGlideRequest().centerCrop();
         return this;
     }
 
     public GlideImageView fitCenter() {
-        getImageLoader().getImageView().setScaleType(ScaleType.FIT_CENTER);
+        getImageLoader().getGlideRequest().fitCenter();
         return this;
     }
 
@@ -104,19 +109,19 @@ public class GlideImageView extends PhotoView {
     }
 
     public void load(String url, @DrawableRes int placeholder, OnProgressListener onProgressListener) {
-        load(url, placeholder, 0, onProgressListener);
+        load(url, placeholder, null, onProgressListener);
     }
 
     public void load(String url, @DrawableRes int placeholder, int radius, OnProgressListener onProgressListener) {
-        load(url, placeholder, onProgressListener, new GlideTransform(getContext(), new RoundBitmapTransformation(getContext(), radius)));
+        load(url, placeholder, new RadiusTransformation(getContext(), radius), onProgressListener);
     }
 
-    public void load(Object obj, @DrawableRes int placeholder, Transformation<Bitmap>... bitmapTransformations) {
-        getImageLoader().loadImage(obj, placeholder, bitmapTransformations);
+    public void load(Object obj, @DrawableRes int placeholder, Transformation<Bitmap> transformation) {
+        getImageLoader().loadImage(obj, placeholder, transformation);
     }
 
-    public void load(Object obj, @DrawableRes int placeholder, OnProgressListener onProgressListener, Transformation<Bitmap>... bitmapTransformations) {
-        getImageLoader().listener(obj, onProgressListener).loadImage(obj, placeholder, bitmapTransformations);
+    public void load(Object obj, @DrawableRes int placeholder, Transformation<Bitmap> transformation, OnProgressListener onProgressListener) {
+        getImageLoader().listener(obj, onProgressListener).loadImage(obj, placeholder, transformation);
     }
 
     public void loadCircle(String url) {
@@ -128,7 +133,7 @@ public class GlideImageView extends PhotoView {
     }
 
     public void loadCircle(String url, @DrawableRes int placeholder, OnProgressListener onProgressListener) {
-        load(url, placeholder, onProgressListener, new GlideTransform(getContext(), new CircleBitmapTransformation(getContext())));
+        load(url, placeholder, new CircleTransformation(), onProgressListener);
     }
 
     public void loadDrawable(@DrawableRes int resId) {
@@ -139,8 +144,8 @@ public class GlideImageView extends PhotoView {
         loadDrawable(resId, placeholder, null);
     }
 
-    public void loadDrawable(@DrawableRes int resId, @DrawableRes int placeholder, Transformation<Bitmap>... bitmapTransformations) {
-        getImageLoader().load(resId, placeholder, bitmapTransformations);
+    public void loadDrawable(@DrawableRes int resId, @DrawableRes int placeholder, @NonNull Transformation<Bitmap> transformation) {
+        getImageLoader().load(resId, placeholder, transformation);
     }
 
     @Override
