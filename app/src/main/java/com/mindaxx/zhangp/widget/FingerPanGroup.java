@@ -23,6 +23,9 @@ import com.nineoldandroids.view.ViewHelper;
  */
 public class FingerPanGroup extends FrameLayout {
 
+    private float mDownX;
+    private float mTranslationX;
+    private float mLastTranslationX;
     private float mDownY;
     private float mTranslationY;
     private float mLastTranslationY;
@@ -67,6 +70,7 @@ public class FingerPanGroup extends FrameLayout {
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 mDownY = ev.getRawY();
+                mDownX = ev.getRawX();
             case MotionEvent.ACTION_MOVE:
                 if (null != photoView) {
                     float rawY = ev.getRawY();
@@ -85,6 +89,7 @@ public class FingerPanGroup extends FrameLayout {
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 mDownY = event.getRawY();
+                mDownX = event.getRawX();
             case MotionEvent.ACTION_MOVE:
                 if (null != photoView) {
                     onOneFingerPanActionMove(event);
@@ -100,6 +105,7 @@ public class FingerPanGroup extends FrameLayout {
     private void onOneFingerPanActionMove(MotionEvent event) {
         float moveY = event.getRawY();
         mTranslationY = moveY - mDownY + mLastTranslationY;
+        mTranslationX = moveY - mDownX + mLastTranslationX;
         float percent = Math.abs(mTranslationY / (MAX_TRANSLATE_Y + photoView.getHeight()));
         Log.e("percent", "onOneFingerPanActionMove: " + percent);
         float mAlpha = (1 - percent * 3);
@@ -118,7 +124,6 @@ public class FingerPanGroup extends FrameLayout {
             mOnAlphaChangedListener.onAlphaChanged(mAlpha);
         }
         ViewHelper.setScrollY(this, -(int) mTranslationY);
-
     }
 
     private void onActionUp() {
