@@ -59,6 +59,9 @@ dependencies {
     implementation project(':okgo')
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.tencent.bugly:crashreport_upgrade:1.4.1'
+
+    implementation 'com.google.dagger:dagger:2.22'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.22'
     implementation 'com.jakewharton:butterknife:9.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'

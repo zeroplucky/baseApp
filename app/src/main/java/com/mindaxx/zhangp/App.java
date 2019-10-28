@@ -10,6 +10,9 @@ import com.bumptech.glide.load.model.GlideUrl;
 import com.minda.logger.AndroidLogAdapter;
 import com.minda.logger.DiskLogAdapter;
 import com.minda.logger.Logger;
+import com.mindaxx.zhangp.di.component.ApplicationComponent;
+import com.mindaxx.zhangp.di.component.DaggerApplicationComponent;
+import com.mindaxx.zhangp.di.module.ApplicationModule;
 import com.mindaxx.zhangp.http.HttpManager;
 import com.mindaxx.zhangp.imageloader.ProgressManager;
 import com.mindaxx.zhangp.util.SpUtil;
@@ -45,6 +48,7 @@ public class App extends Application {
         initLogger();
         initCrashThrowable();
     }
+
 
     private void initBugly() {
         Beta.autoInit = true;
