@@ -3,27 +3,27 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/library/apkupdater/apkupdater.iml" filepath="$PROJECT_DIR$/library/apkupdater/apkupdater.iml" />
-      <module fileurl="file://$PROJECT_DIR$/apkupdater/apkupdater.iml" filepath="$PROJECT_DIR$/apkupdater/apkupdater.iml" />
+      <module fileurl="file://D:\baseApp\apkupdater\apkupdater.iml" filepath="D:\baseApp\apkupdater\apkupdater.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/autosize/autosize.iml" filepath="$PROJECT_DIR$/library/autosize/autosize.iml" />
-      <module fileurl="file://$PROJECT_DIR$/autosize/autosize.iml" filepath="$PROJECT_DIR$/autosize/autosize.iml" />
+      <module fileurl="file://D:\baseApp\autosize\autosize.iml" filepath="D:\baseApp\autosize\autosize.iml" />
       <module fileurl="file://$PROJECT_DIR$/baseApp.iml" filepath="$PROJECT_DIR$/baseApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/bottombar/bottombar.iml" filepath="$PROJECT_DIR$/library/bottombar/bottombar.iml" />
-      <module fileurl="file://$PROJECT_DIR$/bottombar/bottombar.iml" filepath="$PROJECT_DIR$/bottombar/bottombar.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../git/baseApp/apkupdater/firupdater.iml" filepath="$PROJECT_DIR$/../git/baseApp/apkupdater/firupdater.iml" />
+      <module fileurl="file://D:\baseApp\bottombar\bottombar.iml" filepath="D:\baseApp\bottombar\bottombar.iml" />
+      <module fileurl="file://D:\git\baseApp\apkupdater\firupdater.iml" filepath="D:\git\baseApp\apkupdater\firupdater.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/imagepicker/imagepicker.iml" filepath="$PROJECT_DIR$/library/imagepicker/imagepicker.iml" />
-      <module fileurl="file://$PROJECT_DIR$/imagepicker/imagepicker.iml" filepath="$PROJECT_DIR$/imagepicker/imagepicker.iml" />
+      <module fileurl="file://D:\baseApp\imagepicker\imagepicker.iml" filepath="D:\baseApp\imagepicker\imagepicker.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/logger/logger.iml" filepath="$PROJECT_DIR$/library/logger/logger.iml" />
-      <module fileurl="file://$PROJECT_DIR$/logger/logger.iml" filepath="$PROJECT_DIR$/logger/logger.iml" />
+      <module fileurl="file://D:\baseApp\logger\logger.iml" filepath="D:\baseApp\logger\logger.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/okgo/okgo.iml" filepath="$PROJECT_DIR$/library/okgo/okgo.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/permission/permission.iml" filepath="$PROJECT_DIR$/library/permission/permission.iml" />
-      <module fileurl="file://$PROJECT_DIR$/permission/permission.iml" filepath="$PROJECT_DIR$/permission/permission.iml" />
+      <module fileurl="file://D:\baseApp\permission\permission.iml" filepath="D:\baseApp\permission\permission.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/statusview/statusview.iml" filepath="$PROJECT_DIR$/library/statusview/statusview.iml" />
-      <module fileurl="file://$PROJECT_DIR$/statusview/statusview.iml" filepath="$PROJECT_DIR$/statusview/statusview.iml" />
+      <module fileurl="file://D:\baseApp\statusview\statusview.iml" filepath="D:\baseApp\statusview\statusview.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/waitingview/waitingview.iml" filepath="$PROJECT_DIR$/library/waitingview/waitingview.iml" />
-      <module fileurl="file://$PROJECT_DIR$/waitingview/waitingview.iml" filepath="$PROJECT_DIR$/waitingview/waitingview.iml" />
+      <module fileurl="file://D:\baseApp\waitingview\waitingview.iml" filepath="D:\baseApp\waitingview\waitingview.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/wheelview/wheelview.iml" filepath="$PROJECT_DIR$/library/wheelview/wheelview.iml" />
-      <module fileurl="file://$PROJECT_DIR$/wheelview/wheelview.iml" filepath="$PROJECT_DIR$/wheelview/wheelview.iml" />
+      <module fileurl="file://D:\baseApp\wheelview\wheelview.iml" filepath="D:\baseApp\wheelview\wheelview.iml" />
     </modules>
   </component>
 </project>

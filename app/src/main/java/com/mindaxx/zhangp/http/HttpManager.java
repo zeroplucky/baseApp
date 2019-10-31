@@ -4,12 +4,14 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.GetRequest;
 import com.lzy.okgo.request.PostRequest;
+import com.mindaxx.zhangp.crypto.AesEncryptor;
 
 import java.io.File;
 import java.util.List;
@@ -151,6 +153,39 @@ public class HttpManager {
                 super.onError(response);
                 httpBack.onFailed(response.message());
             }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                httpBack.onFinish();
+            }
+        });
+    }
+
+    /*
+    * 加密
+    * */
+    public static void postJson(String url, Object object, OnHttpCall httpBack) {
+        if (!url.startsWith("http")) {
+            url = "http://" + url;
+        }
+        String encrypt = AesEncryptor.encrypt(new Gson().toJson(object));
+
+        PostRequest<String> request = OkGo.<String>post(url)
+                .tag(url).upJson(encrypt);
+        request.execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                String body = response.body();
+                httpBack.onSuccess(AesEncryptor.decrypt(body));
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                httpBack.onFailed(response.message());
+            }
+
 
             @Override
             public void onFinish() {

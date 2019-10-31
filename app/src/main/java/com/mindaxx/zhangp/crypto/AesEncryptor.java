@@ -17,6 +17,26 @@ public class AesEncryptor {
     private static final String VIPARA = "1269571569321021";
     private final static String key = "1234567890987654"; // 加密钥匙（length==16）
 
+    /*
+    * 通过密码加密生成秘钥
+    * */
+    public static String make16(String key) {
+        String k = Base64.encodeToString(key.getBytes(), 0);
+        if (k.length() < 16) {
+            k = make16(k);
+        } else {
+            byte[] bytes = k.getBytes();
+            byte sum = 0;
+            for (int j = 0; j < bytes.length; j++) {
+                sum ^= bytes[j];
+            }
+            for (int j = 0; j < bytes.length; j++) {
+                bytes[j] ^= sum;
+            }
+            k = Base64.encodeToString(bytes, 0).substring(0, 16);
+        }
+        return k;
+    }
 
     /**
      * 加密
@@ -68,7 +88,7 @@ public class AesEncryptor {
      * @param content 要加密内容
      * @return 加密之后的内容
      */
-    public static String encrypt(String key, String content) throws Exception {
+    public static String encrypt(String content, String key) throws Exception {
         byte[] result = encrypt(key.getBytes(), content.getBytes(CODING));
         return Base64.encodeToString(result, 0);
     }
@@ -76,9 +96,9 @@ public class AesEncryptor {
     /**
      * 解密
      *
-     * @param key     解密钥匙（length==16）
+     * @param key       解密钥匙（length==16）
      * @param encrypted 加密内容
-     * @param coding  编码
+     * @param coding    编码
      */
     public static String decrypt(String key, String encrypted, String coding) throws Exception {
         byte[] enc = Base64.decode(encrypted, 0);
@@ -89,10 +109,10 @@ public class AesEncryptor {
     /**
      * 解密
      *
-     * @param key     解密钥匙（length>=16）
+     * @param key       解密钥匙（length=16）
      * @param encrypted 加密内容
      */
-    public static String decrypt(String key, String encrypted) throws Exception {
+    public static String decrypt(String encrypted, String key) throws Exception {
         byte[] enc = Base64.decode(encrypted, 0);
         byte[] result = decrypt(key.getBytes(), enc);
         return new String(result, CODING);

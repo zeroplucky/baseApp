@@ -28,9 +28,8 @@ class SPUtils {
     private static SPUtils sSharedPreferencesUtils;
     private static SharedPreferences sSharedPreferences;
     private static SharedPreferences.Editor sEditor;
-    private static SharedPreferencesCompat.EditorCompat editorCompat = SharedPreferencesCompat.EditorCompat.getInstance();
 
-    private static final String DEFAULT_SP_NAME = "sharedp_dir";
+    private static final String DEFAULT_SP_NAME = "sp_directory";
     private static final int DEFAULT_INT = 0;
     public static final int INITIALCAPACITY = 0;
     private static final float DEFAULT_FLOAT = 0.0f;
@@ -88,7 +87,7 @@ class SPUtils {
         } else {
             sEditor.putString(key, value.toString());
         }
-        editorCompat.apply(sEditor);
+        sEditor.apply();
         return sSharedPreferencesUtils;
     }
 
@@ -113,7 +112,7 @@ class SPUtils {
 
     public SPUtils putInt(String key, int value) {
         sEditor.putInt(key, value);
-        editorCompat.apply(sEditor);
+        sEditor.apply();
         return this;
     }
 
@@ -144,7 +143,7 @@ class SPUtils {
 
     public SPUtils putFloat(String key, float value) {
         sEditor.putFloat(key, value);
-        editorCompat.apply(sEditor);
+        sEditor.apply();
         return sSharedPreferencesUtils;
     }
 
@@ -170,7 +169,7 @@ class SPUtils {
 
     public SPUtils putLong(String key, long value) {
         sEditor.putLong(key, value);
-        editorCompat.apply(sEditor);
+        sEditor.apply();
         return sSharedPreferencesUtils;
     }
 
@@ -196,7 +195,7 @@ class SPUtils {
 
     public SPUtils putString(String key, String value) {
         sEditor.putString(key, value);
-        editorCompat.apply(sEditor);
+        sEditor.apply();
         return sSharedPreferencesUtils;
     }
 
@@ -222,7 +221,7 @@ class SPUtils {
 
     public SPUtils putBoolean(String key, boolean value) {
         sEditor.putBoolean(key, value);
-        editorCompat.apply(sEditor);
+        sEditor.apply();
         return sSharedPreferencesUtils;
     }
 
@@ -249,7 +248,7 @@ class SPUtils {
     public SPUtils putStringSet(String key, Set<String> value) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             sEditor.putStringSet(key, value);
-            editorCompat.apply(sEditor);
+            sEditor.apply();
         }
         return sSharedPreferencesUtils;
     }
@@ -294,13 +293,13 @@ class SPUtils {
 
     public SPUtils remove(String key) {
         sEditor.remove(key);
-        editorCompat.apply(sEditor);
+        sEditor.apply();
         return sSharedPreferencesUtils;
     }
 
     public SPUtils clear() {
         sEditor.clear();
-        editorCompat.apply(sEditor);
+        sEditor.apply();
         return sSharedPreferencesUtils;
     }
 
@@ -316,11 +315,8 @@ class SPUtils {
             out = new ObjectOutputStream(baos);
             out.writeObject(object);
             String objectVal = new String(Base64.encode(baos.toByteArray(), Base64.DEFAULT));
-//            SharedPreferences.Editor editor = sSharedPreferences.edit();
-//            editor.putString(key, objectVal);
-//            editor.commit();
             sEditor.putString(key, objectVal);
-            editorCompat.apply(sEditor);
+            sEditor.apply();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
