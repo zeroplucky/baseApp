@@ -2,6 +2,8 @@ package com.mindaxx.zhangp.util;
 
 import android.content.Context;
 
+import com.tencent.mmkv.MMKV;
+
 /**
  * Created by Administrator on 2019/10/15.
  */
@@ -22,6 +24,10 @@ public class SpUtil {
 
     public static void putObj(String key, Object value) {
         MMKVUtil.init(mContext).putObj(key, value);
+    }
+
+    public static MMKV getMMKV() {
+        return MMKVUtil.init(mContext).defaultMMKV();
     }
 
     public static String getString(String key, String value) {

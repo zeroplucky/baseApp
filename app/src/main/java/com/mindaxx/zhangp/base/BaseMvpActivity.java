@@ -48,7 +48,8 @@ public abstract class BaseMvpActivity<P extends MvpPresenter> extends SupportAct
      * 需要进行检测的权限数组
      */
     protected String[] needPermissions = {
-
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
     private static final int PERMISSON_REQUESTCODE = 0;
@@ -73,7 +74,6 @@ public abstract class BaseMvpActivity<P extends MvpPresenter> extends SupportAct
         return true;
     }
 
-
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
@@ -83,7 +83,6 @@ public abstract class BaseMvpActivity<P extends MvpPresenter> extends SupportAct
         }
 
     }
-
 
     public boolean setEvenBus() {
         return false;

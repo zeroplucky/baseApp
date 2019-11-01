@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.minda.logger.Logger;
 import com.mindaxx.zhangp.MainActivity;
 import com.mindaxx.zhangp.MainFragment;
 import com.mindaxx.zhangp.R;
