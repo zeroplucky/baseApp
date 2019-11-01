@@ -3,6 +3,7 @@ package com.mindaxx.zhangp.ui.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,6 +14,8 @@ import com.mindaxx.zhangp.R;
 import com.mindaxx.zhangp.base.BaseMvpFragment;
 import com.mindaxx.zhangp.util.SpUtil;
 import com.mindaxx.zhangp.widget.UniversalDialog;
+
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -66,7 +69,6 @@ public class BFragment extends BaseMvpFragment {
             }
         });
     }
-
 
     @OnClick(R.id.reset_pass_word)
     public void onResetPassWord() {

@@ -9,7 +9,6 @@ import android.content.Context;
 public class SpUtil {
 
     private static Context mContext;
-
     private static final String login = "login";
     public static final String user_id = "user_id";
     public static final String pass_word = "pass_word";
@@ -21,28 +20,36 @@ public class SpUtil {
         mContext = context;
     }
 
+    public static void putObj(String key, Object value) {
+        MMKVUtil.init(mContext).putObj(key, value);
+    }
+
+    public static String getString(String key, String value) {
+        return MMKVUtil.init(mContext).getString(key, value);
+    }
+
     public static void saveIsLogin(boolean isLogin) {
-        SPUtils.init(mContext).putBoolean(login, isLogin);
+        MMKVUtil.init(mContext).putObj(login, isLogin);
     }
 
     public static boolean getIsLogin() {
-        return SPUtils.init(mContext).getBoolean(login, false);
+        return MMKVUtil.init(mContext).getBool(login);
     }
 
     public static void saveUserId(String infoId) {
-        SPUtils.init(mContext).putString(user_id, infoId);
+        MMKVUtil.init(mContext).putObj(user_id, infoId);
     }
 
     public static String getUserId() {
-        return SPUtils.init(mContext).getString(user_id);
+        return MMKVUtil.init(mContext).getString(user_id);
     }
 
     public static void savePassWord(String passWord) {
-        SPUtils.init(mContext).putString(pass_word, passWord);
+        MMKVUtil.init(mContext).putObj(pass_word, passWord);
     }
 
     public static String getPassWord() {
-        return SPUtils.init(mContext).getString(pass_word);
+        return MMKVUtil.init(mContext).getString(pass_word);
     }
 
 }

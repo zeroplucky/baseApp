@@ -24,7 +24,6 @@ import java.util.Set;
 
 class SPUtils {
 
-    private static final String TAG = "SPUtils";
     private static SPUtils sSharedPreferencesUtils;
     private static SharedPreferences sSharedPreferences;
     private static SharedPreferences.Editor sEditor;
@@ -47,9 +46,12 @@ class SPUtils {
     private SPUtils(Context context, String spName) {
         mContext = context.getApplicationContext();
         sSharedPreferences = mContext.getSharedPreferences(spName, Context.MODE_PRIVATE);
+//        // 使用mmkv
+//        MMKV preferences = MMKVUtil.init(context).mmkvWithID(spName);
+//        preferences.importFromSharedPreferences(sSharedPreferences);
+//        sSharedPreferences.edit().clear().commit();
         sEditor = sSharedPreferences.edit();
         mCurSPName = spName;
-        Log.i(TAG, "SPUtils: " + mCurSPName);
     }
 
     public static SPUtils init(Context context) {

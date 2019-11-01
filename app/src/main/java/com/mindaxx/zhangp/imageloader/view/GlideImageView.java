@@ -136,7 +136,7 @@ public class GlideImageView extends PhotoView {
     }
 
     public void loadDrawable(@DrawableRes int resId, @DrawableRes int placeholder) {
-        loadDrawable(resId, placeholder, null);
+        loadDrawable(resId, placeholder, (Transformation<Bitmap>) null);
     }
 
     public void loadDrawable(@DrawableRes int resId, @DrawableRes int placeholder, Transformation<Bitmap>... bitmapTransformations) {

@@ -15,13 +15,13 @@ public class AesEncryptor {
 
     private final static String CODING = "UTF-8";
     private static final String VIPARA = "1269571569321021";
-    private final static String key = "1234567890987654"; // 加密钥匙（length==16）
+    private final static String cryptKey = "1234567890987654"; // 加密钥匙（length==16）
 
     /*
     * 通过密码加密生成秘钥
     * */
-    public static String make16(String key) {
-        String k = Base64.encodeToString(key.getBytes(), 0);
+    public static String make16(String cryptKey) {
+        String k = Base64.encodeToString(cryptKey.getBytes(), 0);
         if (k.length() < 16) {
             k = make16(k);
         } else {
@@ -46,7 +46,7 @@ public class AesEncryptor {
      */
     public static String encrypt(String content) {
         try {
-            byte[] result = encrypt(key.getBytes(), content.getBytes(CODING));
+            byte[] result = encrypt(cryptKey.getBytes(), content.getBytes(CODING));
             return Base64.encodeToString(result, 0);
         } catch (Exception e) {
             return "";
@@ -61,7 +61,7 @@ public class AesEncryptor {
     public static String decrypt(String content) {
         try {
             byte[] enc = Base64.decode(content, 0);
-            byte[] result = decrypt(key.getBytes(), enc);
+            byte[] result = decrypt(cryptKey.getBytes(), enc);
             return new String(result, CODING);
         } catch (Exception e) {
             return "";
@@ -71,50 +71,50 @@ public class AesEncryptor {
     /**
      * 加密
      *
-     * @param key     加密钥匙（length==16）
-     * @param content 要加密内容
-     * @param coding  编码
+     * @param cryptKey 加密钥匙（length==16）
+     * @param content  要加密内容
+     * @param coding   编码
      * @return 加密之后的内容
      */
-    public static String encrypt(String key, String content, String coding) throws Exception {
-        byte[] result = encrypt(key.getBytes(), content.getBytes(TextUtils.isEmpty(coding) ? CODING : coding));
+    public static String encrypt(String cryptKey, String content, String coding) throws Exception {
+        byte[] result = encrypt(cryptKey.getBytes(), content.getBytes(TextUtils.isEmpty(coding) ? CODING : coding));
         return Base64.encodeToString(result, 0);
     }
 
     /**
      * 加密
      *
-     * @param key     加密钥匙（length==16）
-     * @param content 要加密内容
+     * @param cryptKey 加密钥匙（length==16）
+     * @param content  要加密内容
      * @return 加密之后的内容
      */
-    public static String encrypt(String content, String key) throws Exception {
-        byte[] result = encrypt(key.getBytes(), content.getBytes(CODING));
+    public static String encrypt(String content, String cryptKey) throws Exception {
+        byte[] result = encrypt(cryptKey.getBytes(), content.getBytes(CODING));
         return Base64.encodeToString(result, 0);
     }
 
     /**
      * 解密
      *
-     * @param key       解密钥匙（length==16）
+     * @param cryptKey  解密钥匙（length==16）
      * @param encrypted 加密内容
      * @param coding    编码
      */
-    public static String decrypt(String key, String encrypted, String coding) throws Exception {
+    public static String decrypt(String cryptKey, String encrypted, String coding) throws Exception {
         byte[] enc = Base64.decode(encrypted, 0);
-        byte[] result = decrypt(key.getBytes(), enc);
+        byte[] result = decrypt(cryptKey.getBytes(), enc);
         return new String(result, TextUtils.isEmpty(coding) ? CODING : coding);
     }
 
     /**
      * 解密
      *
-     * @param key       解密钥匙（length=16）
+     * @param cryptKey  解密钥匙（length=16）
      * @param encrypted 加密内容
      */
-    public static String decrypt(String encrypted, String key) throws Exception {
+    public static String decrypt(String encrypted, String cryptKey) throws Exception {
         byte[] enc = Base64.decode(encrypted, 0);
-        byte[] result = decrypt(key.getBytes(), enc);
+        byte[] result = decrypt(cryptKey.getBytes(), enc);
         return new String(result, CODING);
     }
 
