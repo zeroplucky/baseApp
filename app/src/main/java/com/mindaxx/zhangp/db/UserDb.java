@@ -38,18 +38,26 @@ public class UserDb extends LitePalSupport {
     }
 
     public static void saveAll(UserDb bean) {
-        UserDb db = new UserDb();
-        db.userName = bean.getUserName();
-        db.userId = bean.getUserId();
-        db.passWord = bean.getPassWord();
-        db.save();
+        try {
+            UserDb db = new UserDb();
+            db.userName = bean.getUserName();
+            db.userId = bean.getUserId();
+            db.passWord = bean.getPassWord();
+            db.save();
+        } catch (Exception e) {
+        }
     }
 
     public static UserDb select() {
+        UserDb db = null;
         try {
-            return LitePal.findFirst(UserDb.class);
+            db = LitePal.findFirst(UserDb.class);
         } catch (Exception e) {
-            return new UserDb();
+        } finally {
+            if (db == null) {
+                db = new UserDb();
+            }
+            return db;
         }
     }
 
