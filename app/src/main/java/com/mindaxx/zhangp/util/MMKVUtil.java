@@ -24,16 +24,16 @@ class MMKVUtil {
         }
     }
 
+    private MMKVUtil(Context context) {
+        MMKV.initialize(context);
+    }
+
     public MMKV defaultMMKV() {
         return MMKV.defaultMMKV(1, cryptKey);
     }
 
     public MMKV mmkvWithID(String spName) {
         return MMKV.mmkvWithID(spName);
-    }
-
-    public MMKVUtil(Context context) {
-        MMKV.initialize(context);
     }
 
     public void putObj(String key, Object value) {
@@ -54,7 +54,6 @@ class MMKVUtil {
             mmkv.encode(key, value.toString());
         }
     }
-
 
     public boolean getBool(String key) {
         MMKV mmkv = MMKV.defaultMMKV(1, cryptKey);
