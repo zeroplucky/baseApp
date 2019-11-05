@@ -84,7 +84,7 @@ public class GlideImageLoader {
     public GlideImageLoader loadImage(Object obj, @DrawableRes int placeholder, Transformation<Bitmap>... bitmapTransformations) {
         drawableTypeRequest = loadImage(obj);
         if (placeholder != 0) {
-            drawableTypeRequest.placeholder(placeholder);
+            drawableTypeRequest.error(placeholder);
         }
         if (bitmapTransformations != null) {
             drawableTypeRequest.bitmapTransform(bitmapTransformations);
