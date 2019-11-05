@@ -37,12 +37,16 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Glide.get(this).register(GlideUrl.class, InputStream.class,
-                new OkHttpUrlLoader.Factory(ProgressManager.getOkHttpClient()));
         SpUtil.init(getApplicationContext());
+        initGlide();
         initBugly();
         initLogger();
         initCrashThrowable();
+    }
+
+    private void initGlide() {
+        Glide.get(this).register(GlideUrl.class, InputStream.class,
+                new OkHttpUrlLoader.Factory(ProgressManager.getOkHttpClient()));
     }
 
 
