@@ -82,18 +82,21 @@ public class HttpManager {
             @Override
             public void onSuccess(Response<String> response) {
                 String body = response.body();
+                if (httpBack == null) return;
                 httpBack.onSuccess(body);
             }
 
             @Override
             public void onError(Response<String> response) {
                 super.onError(response);
+                if (httpBack == null) return;
                 httpBack.onFailed(response.message());
             }
 
             @Override
             public void onFinish() {
                 super.onFinish();
+                if (httpBack == null) return;
                 httpBack.onFinish();
             }
 
@@ -113,18 +116,21 @@ public class HttpManager {
             @Override
             public void onSuccess(Response<String> response) {
                 String body = response.body();
+                if (httpBack == null) return;
                 httpBack.onSuccess(body);
             }
 
             @Override
             public void onError(Response<String> response) {
                 super.onError(response);
+                if (httpBack == null) return;
                 httpBack.onFailed(response.message());
             }
 
             @Override
             public void onFinish() {
                 super.onFinish();
+                if (httpBack == null) return;
                 httpBack.onFinish();
             }
 
@@ -145,18 +151,21 @@ public class HttpManager {
             @Override
             public void onSuccess(Response<String> response) {
                 String body = response.body();
+                if (httpBack == null) return;
                 httpBack.onSuccess(body);
             }
 
             @Override
             public void onError(Response<String> response) {
                 super.onError(response);
+                if (httpBack == null) return;
                 httpBack.onFailed(response.message());
             }
 
             @Override
             public void onFinish() {
                 super.onFinish();
+                if (httpBack == null) return;
                 httpBack.onFinish();
             }
         });
@@ -214,18 +223,21 @@ public class HttpManager {
             @Override
             public void onSuccess(Response<String> response) {
                 String body = response.body();
+                if (httpBack == null) return;
                 httpBack.onSuccess(body);
             }
 
             @Override
             public void onError(Response<String> response) {
                 super.onError(response);
+                if (httpBack == null) return;
                 httpBack.onFailed(response.message());
             }
 
             @Override
             public void onFinish() {
                 super.onFinish();
+                if (httpBack == null) return;
                 httpBack.onFinish();
             }
         });
@@ -247,18 +259,21 @@ public class HttpManager {
                 @Override
                 public void onSuccess(Response<String> response) {
                     String body = response.body();
+                    if (httpBack == null) return;
                     httpBack.onSuccess(body);
                 }
 
                 @Override
                 public void onError(Response<String> response) {
                     super.onError(response);
+                    if (httpBack == null) return;
                     httpBack.onFailed(response.message());
                 }
 
                 @Override
                 public void onFinish() {
                     super.onFinish();
+                    if (httpBack == null) return;
                     httpBack.onFinish();
                 }
             });

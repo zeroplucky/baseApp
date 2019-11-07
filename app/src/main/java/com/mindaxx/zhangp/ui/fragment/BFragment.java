@@ -1,31 +1,30 @@
 package com.mindaxx.zhangp.ui.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.lzy.okgo.OkGo;
 import com.mindaxx.zhangp.MainActivity;
 import com.mindaxx.zhangp.MainFragment;
 import com.mindaxx.zhangp.R;
 import com.mindaxx.zhangp.base.BaseMvpFragment;
+import com.mindaxx.zhangp.http.HttpManager;
+import com.mindaxx.zhangp.util.NetworkStatsHelper;
 import com.mindaxx.zhangp.util.SpUtil;
-import com.mindaxx.zhangp.widget.PictureDialog;
-import com.mindaxx.zhangp.widget.PictureDialog2;
 import com.mindaxx.zhangp.widget.UniversalDialog;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,6 +39,10 @@ public class BFragment extends BaseMvpFragment {
     TextView exite;
     @BindView(R.id.head_icon_rl)
     RelativeLayout headIconRl;
+    @BindView(R.id.userImg)
+    ImageView userImg;
+
+    private NetworkStatsHelper networkStatsHelper;
 
     public static BFragment newInstance() {
         Bundle args = new Bundle();
@@ -57,6 +60,7 @@ public class BFragment extends BaseMvpFragment {
     protected void initView(View mView, Bundle savedInstanceState) {
         super.initView(mView, savedInstanceState);
         titleName.setText("我的");
+        networkStatsHelper = new NetworkStatsHelper(getContext());
     }
 
     @OnClick(R.id.exite)
@@ -79,6 +83,12 @@ public class BFragment extends BaseMvpFragment {
         });
     }
 
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
     @OnClick(R.id.reset_pass_word)
     public void onResetPassWord() {
         ((MainFragment) getParentFragment()).start(ResetPassWordFragment.newInstance());
@@ -86,9 +96,42 @@ public class BFragment extends BaseMvpFragment {
 
     @OnClick(R.id.head_icon_rl)
     public void onClickHeadIcon() {
-        List<String> list = new ArrayList<>();
-        list.add("https://www.baidu.com/img/bd_logo1.png");
-        list.add("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png");
-        new PictureDialog2(getContext(), list).show();
+        HttpManager.get("http://news.baidu.com/", null);
+        getNetStats(networkStatsHelper, getContext());
     }
+
+    private void getNetStats(NetworkStatsHelper networkStatsHelper, Context context) {
+        if (networkStatsHelper.hasPermissionToReadNetworkStats(context)) {
+
+            long todayMobile = networkStatsHelper.getTodayPackageBytesMobile2(context);
+            String todayMobile_ = networkStatsHelper.bite(todayMobile);
+
+            long monthMobile2 = networkStatsHelper.getMonthPackageBytesMobile2(context);
+            String monthMobile2_ = networkStatsHelper.bite(monthMobile2);
+
+            long allTodayMobile = networkStatsHelper.getAllDeviceTodayMobile(context);
+            String allTodayMobile1 = networkStatsHelper.bite(allTodayMobile);
+
+            long allMonthMobile = networkStatsHelper.getAllDeviceMonthMobile(context);
+            String allMonthMobile1 = networkStatsHelper.bite(allMonthMobile);
+            Log.e("networkStatsHelper", "Mobile:----    , todayMobile_ =  " + todayMobile_ + "  , monthMobile2_ =  " + monthMobile2_ +
+                    "  ,allTodayMobile =  " + allTodayMobile1 + "  , allMonthMobile = " + allMonthMobile1);
+
+            long todayWifi2 = networkStatsHelper.getTodayPackageBytesWifi2(context);
+            String todayWifi2_ = networkStatsHelper.bite(todayWifi2);
+
+            long monthWifi2 = networkStatsHelper.getMonthPackageBytesWifi2(context);
+            String monthWifi2_ = networkStatsHelper.bite(monthWifi2);
+
+            long alltodayWifi = networkStatsHelper.getAllDeviceTodayWifi();
+            String alltodayWifi_ = networkStatsHelper.bite(alltodayWifi);
+
+            long allMonthWifi = networkStatsHelper.getAllDeviceMonthWifi();
+            String allMonthWifi_ = networkStatsHelper.bite(allMonthWifi);
+            Log.e("networkStatsHelper", "todayWifi2_: " + todayWifi2_ + "   , monthWifi2_ =  " + monthWifi2_ +
+                    "   , alltodayWifi_ =  " + alltodayWifi_ + "  , allMonthWifi_ = " + allMonthWifi_);
+        }
+    }
+
+
 }
