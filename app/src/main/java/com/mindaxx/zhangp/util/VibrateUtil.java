@@ -14,13 +14,18 @@ import java.util.List;
 
 public class VibrateUtil {
 
+    private static VibrateUtil util;
     private static Vibrator vibrator;
     private static boolean rumbleDisabled;
     private static String TAG = "VibrateUtil xxx";
 
-    public static void init(Context applicationContext) {
-        vibrator = (Vibrator) applicationContext.getSystemService(Context.VIBRATOR_SERVICE);
-        rumbleDisabled = (vibrator == null || !vibrator.hasVibrator());
+    public synchronized static VibrateUtil init(Context context) {
+        if (vibrator == null) {
+            vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            rumbleDisabled = (vibrator == null || !vibrator.hasVibrator());
+        }
+        if (util == null) util = new VibrateUtil();
+        return util;
     }
 
     private static void apiIndependentVibrate(long milliseconds) {
@@ -49,15 +54,15 @@ public class VibrateUtil {
         if (rumbleDisabled) {
             return;
         }
-
-        vibrator.cancel();
+        if (vibrator != null)
+            vibrator.cancel();
     }
 
-    public static void once(long milliseconds) {
+    public void once(long milliseconds) {
         apiIndependentVibrate(milliseconds);
     }
 
-    public static RumblePattern makePattern() {
+    public RumblePattern makePattern() {
         if (vibrator != null) {
             boolean hasVibrator = vibrator.hasVibrator();
             Log.e(TAG, "makePattern: hasVibrator = " + hasVibrator);
@@ -146,5 +151,5 @@ public class VibrateUtil {
         }
     }
 
-//     VibrateUtil.makePattern().beat(1000).rest(50).playPattern();
+//       VibrateUtil.init(getContext()).makePattern().beat(1000).rest(5).playPattern();
 }

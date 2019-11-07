@@ -20,6 +20,7 @@ import com.mindaxx.zhangp.base.BaseMvpFragment;
 import com.mindaxx.zhangp.http.HttpManager;
 import com.mindaxx.zhangp.util.NetworkStatsHelper;
 import com.mindaxx.zhangp.util.SpUtil;
+import com.mindaxx.zhangp.util.VibrateUtil;
 import com.mindaxx.zhangp.widget.UniversalDialog;
 
 import butterknife.BindView;
@@ -98,6 +99,7 @@ public class BFragment extends BaseMvpFragment {
     public void onClickHeadIcon() {
         HttpManager.get("http://news.baidu.com/", null);
         getNetStats(networkStatsHelper, getContext());
+        VibrateUtil.init(getContext()).makePattern().beat(1000).rest(5).playPattern();
     }
 
     private void getNetStats(NetworkStatsHelper networkStatsHelper, Context context) {
