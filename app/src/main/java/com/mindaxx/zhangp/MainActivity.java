@@ -2,9 +2,11 @@ package com.mindaxx.zhangp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.mindaxx.zhangp.base.BaseMvpActivity;
 import com.mindaxx.zhangp.ui.activity.LoginActivity;
+import com.mindaxx.zhangp.ui.activity.RecordActivity;
 import com.mindaxx.zhangp.util.SpUtil;
 
 public class MainActivity extends BaseMvpActivity {
@@ -13,13 +15,13 @@ public class MainActivity extends BaseMvpActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        skip2next();
+        //skip2next();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        skip2next();
+        //skip2next();
     }
 
     private void skip2next() {
@@ -35,4 +37,11 @@ public class MainActivity extends BaseMvpActivity {
         }
     }
 
+    public void luzhi(View view) {
+
+
+
+        Intent intent = new Intent(this, RecordActivity.class);
+        startActivityForResult(intent, 111);
+    }
 }

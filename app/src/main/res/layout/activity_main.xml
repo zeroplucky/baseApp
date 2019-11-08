@@ -10,12 +10,20 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/back_ground_green" />
+        android:background="@color/back_ground_green"
+        android:visibility="gone" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/line_div_string" />
 
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="视频录制"
+        android:onClick="luzhi"/>
 
 </LinearLayout>

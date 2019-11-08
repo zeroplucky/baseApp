@@ -50,7 +50,9 @@ public abstract class BaseMvpActivity<P extends MvpPresenter> extends SupportAct
     protected String[] needPermissions = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_PHONE_STATE
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.CAMERA,
+            Manifest.permission.RECORD_AUDIO
     };
 
     private static final int PERMISSON_REQUESTCODE = 0;
