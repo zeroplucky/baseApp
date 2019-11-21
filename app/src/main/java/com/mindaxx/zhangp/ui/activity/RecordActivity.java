@@ -34,9 +34,14 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/*
+ * MediaRecorder 录制视频不支持暂停续录
+ * https://blog.csdn.net/thelastalien/article/details/51545323
+ * */
 public class RecordActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final String TAG = this.getClass().getSimpleName();
@@ -56,8 +61,8 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
     private Camera mCamera;
     private MediaRecorder mediaRecorder;
     private String mVideoPath;
-    private int time = 31; // 录制总时长
-    private Timer mTimer;
+    private int time = 30; // 录制总时长
+    private Timer mTimer = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +77,9 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
         initView();
     }
 
-    Handler mHandler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
+    private Handler mHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
             if (null != mTvCaptureTime && msg.what == 1) {
                 String time = (String) msg.obj;
                 if (!TextUtils.isEmpty(time)) {
@@ -82,15 +88,18 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
             } else if (msg.what == 2) {
                 stopRecord(); // 停止录制
             }
+            return false;
         }
-    };
+    });
 
-    private void startTiming() {
+    /*
+     * 开始任务
+     * */
+    private void startTimer() {
         mTimer = new Timer();
         mTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                time--;
                 if (time != 0) {
                     String ss = new DecimalFormat("00").format(time);
                     String timeFormat = new String("00:" + ss);
@@ -98,11 +107,21 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
                     msg.obj = timeFormat;
                     msg.what = 1;
                     mHandler.sendMessage(msg);
-                } else {
-                    mHandler.sendEmptyMessage(2);
+                    time--;
                 }
             }
         }, 0, 1000L);
+    }
+
+    /*
+     * 取消任务
+     * */
+    private void cancelTimer() {
+        if (mTimer != null) {
+            mTimer.cancel();
+            mTimer.purge();
+            mTimer = null;
+        }
     }
 
     private MediaRecorder.OnErrorListener OnErrorListener = new MediaRecorder.OnErrorListener() {
@@ -127,15 +146,10 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
         mRecordControl.setOnClickListener(this);
         mPauseRecord.setOnClickListener(this);
         mPauseRecord.setEnabled(false);
-        //配置SurfaceHolder
+
         mSurfaceHolder = surfaceView.getHolder();
-        // 设置Surface不需要维护自己的缓冲区
-        mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-        // 设置分辨率
-        mSurfaceHolder.setFixedSize(320, 280);
-        // 设置该组件不会让屏幕自动关闭
-        mSurfaceHolder.setKeepScreenOn(true);
-        //回调接口
+        mSurfaceHolder.setFixedSize(320, 280); // 设置分辨率
+        mSurfaceHolder.setKeepScreenOn(true);// 设置该组件不会让屏幕自动关闭
         mSurfaceHolder.addCallback(mSurfaceCallBack);
     }
 
@@ -181,7 +195,14 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
                 mCamera.setDisplayOrientation(0);
             }
             //设置聚焦模式
-            params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+            List<String> focusModes = params.getSupportedFocusModes();
+            if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
+                params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+            } else if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
+                params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+            } else {
+                params.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+            }
             //缩短Recording启动时间
             params.setRecordingHint(true);
             //影像稳定能力
@@ -206,6 +227,13 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopRecord();
+        releaseCamera();
+    }
+
     /**
      * 开始录制视频
      */
@@ -218,7 +246,6 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
             //开始录制
             mediaRecorder.prepare();
             mediaRecorder.start();
-            startTiming(); // 开始计时
         } catch (IOException e) {
             return false;
         }
@@ -229,9 +256,9 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
      * 停止录制视频
      */
     public void stopRecord() {
-        // 设置后不会崩
-        mTimer.cancel();
+        cancelTimer();
         if (mediaRecorder != null) {
+            // 设置后不会崩
             mediaRecorder.setOnErrorListener(null);
             mediaRecorder.setPreviewDisplay(null);
             //停止录制
@@ -241,6 +268,7 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
             mediaRecorder.release();
             mediaRecorder = null;
         }
+        scannerMedia(getApplicationContext(), new File(mVideoPath));
     }
 
     /**
@@ -249,7 +277,8 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
     private void refreshControlUI() {
         if (mRecorderState == STATE_INIT) {
             //录像时间计时
-            mHandler.sendEmptyMessageDelayed(2, 30 * 1000); //
+            mHandler.sendEmptyMessageDelayed(2, time * 1000); //
+            startTimer();// 开始计时
             mRecordControl.setImageResource(R.drawable.record_video_stop);
             //1s后才能按停止录制按钮
             mRecordControl.setEnabled(false);
@@ -264,6 +293,8 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
 
         } else if (mRecorderState == STATE_RECORDING) {
             mHandler.removeMessages(2);
+            cancelTimer();
+
             mRecordControl.setImageResource(R.drawable.record_video_start);
             mPauseRecord.setVisibility(View.GONE);
             mPauseRecord.setEnabled(false);
@@ -277,16 +308,31 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
         if (mRecorderState == STATE_RECORDING) {
             mPauseRecord.setImageResource(R.drawable.control_play);
             mHandler.removeMessages(2);
+            cancelTimer();
         } else if (mRecorderState == STATE_PAUSE) {
             mPauseRecord.setImageResource(R.drawable.control_pause);
+            mHandler.sendEmptyMessageDelayed(2, time * 1000); //录像时间计时
+            startTimer();// 开始计时
         }
+    }
+
+    /**
+     * 扫描
+     */
+    public static void scannerMedia(Context context, File file) {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri contentUri = Uri.fromFile(file);
+        mediaScanIntent.setData(contentUri);
+        context.sendBroadcast(mediaScanIntent);
     }
 
     /**
      * 配置MediaRecorder()
      */
     private void configMediaRecorder() {
-        mediaRecorder = new MediaRecorder();
+        if (mediaRecorder == null) {
+            mediaRecorder = new MediaRecorder();
+        }
         mediaRecorder.reset();
         mediaRecorder.setCamera(mCamera);
         mediaRecorder.setOnErrorListener(OnErrorListener);
@@ -317,6 +363,7 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
         mediaRecorder.setVideoSize(352, 288);
         //设置录像视频输出地址
         mediaRecorder.setOutputFile(mVideoPath);
+
     }
 
     public int getDisplayOrientation() {
@@ -418,13 +465,6 @@ public class RecordActivity extends AppCompatActivity implements View.OnClickLis
             }
             case R.id.record_pause: {
                 if (mRecorderState == STATE_RECORDING) {
-                    //正在录制的视频，点击后暂停 ,取消自动对焦
-                    mCamera.autoFocus(new Camera.AutoFocusCallback() {
-                        @Override
-                        public void onAutoFocus(boolean success, Camera camera) {
-                            if (success) RecordActivity.this.mCamera.cancelAutoFocus();
-                        }
-                    });
                     stopRecord();
                     refreshPauseUI();
                     mRecorderState = STATE_PAUSE;
