@@ -1,12 +1,17 @@
 package com.mindaxx.zhangp.ui.activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.mindaxx.zhangp.MainActivity;
 import com.mindaxx.zhangp.R;
 import com.mindaxx.zhangp.base.BaseMvpActivity;
+import com.mindaxx.zhangp.http.URL2;
 import com.mindaxx.zhangp.util.SpUtil;
 
 import butterknife.BindView;
@@ -28,7 +33,6 @@ public class LoginActivity extends BaseMvpActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
         ImmersionBar.with(this)
                 .fitsSystemWindows(true)
                 .keyboardEnable(true)
@@ -48,4 +52,21 @@ public class LoginActivity extends BaseMvpActivity {
         skipActivity(mContext, MainActivity.class);
         finish();
     }
+
+    @OnClick(R.id.set_up_ip)
+    public void onSetupIp() {
+        EditText editText = new EditText(this);
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(-1, 45);
+        editText.setLayoutParams(params);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("请输入IP").setView(editText);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                URL2.BASE_URL = editText.getText().toString().trim();
+                Toast.makeText(getApplicationContext(), URL2.BASE_URL, Toast.LENGTH_LONG).show();
+            }
+        }).setNegativeButton("取消", null).show();
+    }
+
 }

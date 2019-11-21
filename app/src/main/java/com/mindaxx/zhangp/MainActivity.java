@@ -15,13 +15,13 @@ public class MainActivity extends BaseMvpActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //skip2next();
+        skip2next();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        //skip2next();
+        skip2next();
     }
 
     private void skip2next() {
@@ -38,9 +38,6 @@ public class MainActivity extends BaseMvpActivity {
     }
 
     public void luzhi(View view) {
-
-
-
         Intent intent = new Intent(this, RecordActivity.class);
         startActivityForResult(intent, 111);
     }
