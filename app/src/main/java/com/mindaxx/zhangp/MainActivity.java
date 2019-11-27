@@ -6,8 +6,8 @@ import android.view.View;
 
 import com.mindaxx.zhangp.base.BaseMvpActivity;
 import com.mindaxx.zhangp.ui.activity.LoginActivity;
-import com.mindaxx.zhangp.ui.activity.RecordActivity;
 import com.mindaxx.zhangp.util.SpUtil;
+import com.sunfusheng.ApkUpdater;
 
 public class MainActivity extends BaseMvpActivity {
 
@@ -15,13 +15,13 @@ public class MainActivity extends BaseMvpActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        skip2next();
+        //skip2next();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        skip2next();
+        //skip2next();
     }
 
     private void skip2next() {
@@ -38,7 +38,10 @@ public class MainActivity extends BaseMvpActivity {
     }
 
     public void luzhi(View view) {
-        Intent intent = new Intent(this, RecordActivity.class);
-        startActivityForResult(intent, 111);
+//        Intent intent = new Intent(this, RecordActivity.class);
+//        startActivityForResult(intent, 111);
+        ApkUpdater apkDownloader = new ApkUpdater(this);
+        apkDownloader
+                .checkVersion("http://120.79.249.68:8288/TEW/app/downApk?getApk=phone_tew_V2.0.15.apk", true, "ccc", "ccc", "ccc");
     }
 }

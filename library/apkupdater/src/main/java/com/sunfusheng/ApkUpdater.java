@@ -11,7 +11,7 @@ import java.io.File;
 /**
  * @author sunfusheng on 2018/2/17.
  */
-public class FirUpdater {
+public class ApkUpdater {
     private Context context;
     private String apiToken;
     private String appId;
@@ -24,32 +24,32 @@ public class FirUpdater {
     private FirDownloader firDownloader;
     private FirNotification firNotification;
 
-    public FirUpdater(Context context) {
+    public ApkUpdater(Context context) {
         this(context, null, null);
     }
 
-    public FirUpdater(Context context, String apiToken, String appId) {
+    public ApkUpdater(Context context, String apiToken, String appId) {
         this.context = context;
         this.apiToken = apiToken;
         this.appId = appId;
     }
 
-    public FirUpdater apiToken(String apiToken) {
+    public ApkUpdater apiToken(String apiToken) {
         this.apiToken = apiToken;
         return this;
     }
 
-    public FirUpdater appId(String appId) {
+    public ApkUpdater appId(String appId) {
         this.appId = appId;
         return this;
     }
 
-    public FirUpdater apkPath(String apkPath) {
+    public ApkUpdater apkPath(String apkPath) {
         this.apkPath = apkPath;
         return this;
     }
 
-    public FirUpdater setForceUpDater(boolean forceUpDater) {
+    public ApkUpdater setForceUpDater(boolean forceUpDater) {
         this.forceUpDater = forceUpDater;
         return this;
     }

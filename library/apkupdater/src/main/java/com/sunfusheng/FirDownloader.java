@@ -61,7 +61,7 @@ public class FirDownloader {
                 conn.setRequestProperty("Range", "bytes=" + currLength + "-");
                 FirUpdaterUtils.logger("currLength: " + currLength + " fileLength: " + fileLength);
 
-                if (conn.getResponseCode() == HttpURLConnection.HTTP_PARTIAL) {
+                if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
                     if (fileLength == 0) {
                         fileLength = conn.getContentLength();
                     }

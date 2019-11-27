@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class FirUpdaterUtils {
 
-    public static String TAG = "FirUpdater";
+    public static String TAG = "ApkUpdater";
     public static boolean enableLog = true;
 
     public static void logger(String log) {
