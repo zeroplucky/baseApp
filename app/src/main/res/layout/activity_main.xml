@@ -18,12 +18,22 @@
         android:layout_height="1px"
         android:background="@color/line_div_string" />
 
-
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="视频录制"
-        android:onClick="luzhi"/>
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/dp5"
+        android:background="@drawable/selector_setting_btn"
+        android:onClick="luzhi"
+        android:text="视频录制" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/selector_setting_btn"
+        android:focusable="true"
+        android:gravity="center"
+        android:onClick="luzhi"
+        android:text="视频录制" />
 
 </LinearLayout>

@@ -2,11 +2,17 @@ package com.mindaxx.zhangp;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
 import com.bumptech.glide.load.model.GlideUrl;
+import com.fanjun.keeplive.KeepLive;
+import com.fanjun.keeplive.config.ForegroundNotification;
+import com.fanjun.keeplive.config.ForegroundNotificationClickListener;
+import com.fanjun.keeplive.config.KeepLiveService;
 import com.minda.logger.AndroidLogAdapter;
 import com.minda.logger.DiskLogAdapter;
 import com.minda.logger.Logger;
@@ -38,6 +44,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         SpUtil.init(getApplicationContext());
+        keepLive();
         initGlide();
         initBugly();
         initLogger();
@@ -77,6 +84,39 @@ public class App extends Application {
                         Logger.logWithTag("throwable-123", result, ex);
                     }
                 });
+    }
+
+    //启动保活服务
+    private void keepLive() {
+        KeepLive.startWork(this, KeepLive.RunMode.ENERGY, new ForegroundNotification("测试", "描述", R.mipmap.ic_launcher,
+
+                        new ForegroundNotificationClickListener() {
+                            @Override
+                            public void foregroundNotificationClick(Context context, Intent intent) {
+                                //定义前台服务的通知点击事件
+                            }
+                        }),
+                //你需要保活的服务，如socket连接、定时任务等，建议不用匿名内部类的方式在这里写
+                new KeepLiveService() {
+                    /**
+                     * 运行中
+                     * 由于服务可能会多次自动启动，该方法可能重复调用
+                     */
+                    @Override
+                    public void onWorking() {
+                        Log.e("KeepLive", "onWorking: ------------------------");
+                    }
+
+                    /**
+                     * 服务终止
+                     * 由于服务可能会被多次终止，该方法可能重复调用，需同onWorking配套使用，如注册和注销broadcast
+                     */
+                    @Override
+                    public void onStop() {
+
+                    }
+                }
+        );
     }
 
 }

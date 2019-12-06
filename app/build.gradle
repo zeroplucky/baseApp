@@ -67,6 +67,7 @@ dependencies {
     implementation project(':autosize')
     implementation project(':wheelview')
     implementation project(':okgo')
+    implementation project(':keeplive')
     // 异常上报
     implementation 'com.tencent.bugly:crashreport_upgrade:1.4.1'
     // 存储

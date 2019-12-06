@@ -40,8 +40,5 @@ public class MainActivity extends BaseMvpActivity {
     public void luzhi(View view) {
 //        Intent intent = new Intent(this, RecordActivity.class);
 //        startActivityForResult(intent, 111);
-        ApkUpdater apkDownloader = new ApkUpdater(this);
-        apkDownloader
-                .checkVersion("http://120.79.249.68:8288/TEW/app/downApk?getApk=phone_tew_V2.0.15.apk", true, "ccc", "ccc", "ccc");
     }
 }
