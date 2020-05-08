@@ -3,16 +3,20 @@ package com.mindaxx.zhangp.ui.activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.lxj.xpopup.XPopup;
 import com.mindaxx.zhangp.MainActivity;
 import com.mindaxx.zhangp.R;
 import com.mindaxx.zhangp.base.BaseMvpActivity;
 import com.mindaxx.zhangp.http.URL2;
+import com.mindaxx.zhangp.util.SizeUtils;
 import com.mindaxx.zhangp.util.SpUtil;
+import com.mindaxx.zhangp.widget.CustomPopupView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,6 +71,18 @@ public class LoginActivity extends BaseMvpActivity {
                 Toast.makeText(getApplicationContext(), URL2.BASE_URL, Toast.LENGTH_LONG).show();
             }
         }).setNegativeButton("取消", null).show();
+    }
+
+    // 类淘宝下来选择
+    private void popupWindown(View op, String[] content) {
+        new XPopup.Builder(this)
+                .atView(op).offsetY(SizeUtils.px2dp(1))
+                .asCustom(new CustomPopupView(mContext, op, content, new CustomPopupView.OnSelectListener2() {
+                    @Override
+                    public void onSelect(int id, String data) {
+                        Toast.makeText(mContext, "  " + id + " . " + data, Toast.LENGTH_SHORT).show();
+                    }
+                })).show();
     }
 
 }
