@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.lxj.xpopup.CustomPopupView;
 import com.lxj.xpopup.XPopup;
 import com.mindaxx.zhangp.MainActivity;
 import com.mindaxx.zhangp.R;
@@ -16,7 +17,6 @@ import com.mindaxx.zhangp.base.BaseMvpActivity;
 import com.mindaxx.zhangp.http.URL2;
 import com.mindaxx.zhangp.util.SizeUtils;
 import com.mindaxx.zhangp.util.SpUtil;
-import com.mindaxx.zhangp.widget.CustomPopupView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

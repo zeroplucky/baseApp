@@ -25,6 +25,7 @@
       <module fileurl="file://$PROJECT_DIR$/waitingview/waitingview.iml" filepath="$PROJECT_DIR$/waitingview/waitingview.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/wheelview/wheelview.iml" filepath="$PROJECT_DIR$/library/wheelview/wheelview.iml" />
       <module fileurl="file://$PROJECT_DIR$/wheelview/wheelview.iml" filepath="$PROJECT_DIR$/wheelview/wheelview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/xpopup/xpopup.iml" filepath="$PROJECT_DIR$/library/xpopup/xpopup.iml" />
     </modules>
   </component>
 </project>

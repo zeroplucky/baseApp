@@ -68,6 +68,7 @@ dependencies {
     implementation project(':wheelview')
     implementation project(':okgo')
     implementation project(':keeplive')
+    implementation project(':xpopup')
     // 异常上报
     implementation 'com.tencent.bugly:crashreport_upgrade:1.4.1'
     // 存储
@@ -94,7 +95,5 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
     // 导航
     implementation 'com.gyf.barlibrary:barlibrary:2.3.0'
-    //xpopup
-    implementation 'com.lxj:xpopup:1.8.10'
 
 }

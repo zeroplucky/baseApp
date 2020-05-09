@@ -1,4 +1,4 @@
-package com.mindaxx.zhangp.widget;
+package com.lxj.xpopup;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -10,7 +10,6 @@ import com.lxj.easyadapter.EasyAdapter;
 import com.lxj.easyadapter.ViewHolder;
 import com.lxj.xpopup.impl.PartShadowPopupView;
 import com.lxj.xpopup.widget.VerticalRecyclerView;
-import com.mindaxx.zhangp.R;
 
 import java.util.Arrays;
 import java.util.HashMap;

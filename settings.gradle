@@ -1,4 +1,4 @@
-include ':app', ':imagepicker', ':bottombar', ':waitingview', ':logger', ':statusview', ':keeplive',
+include ':app', ':imagepicker', ':bottombar', ':waitingview', ':logger', ':statusview', ':keeplive', ':xpopup',
         ':apkupdater', ':permission', ':autosize', ':wheelview', ':okgo'
 
 project(':imagepicker').projectDir = new File('library/imagepicker')
@@ -12,3 +12,4 @@ project(':autosize').projectDir = new File('library/autosize')
 project(':wheelview').projectDir = new File('library/wheelview')
 project(':okgo').projectDir = new File('library/okgo')
 project(':keeplive').projectDir = new File('library/keeplive')
+project(':xpopup').projectDir = new File('library/xpopup')
