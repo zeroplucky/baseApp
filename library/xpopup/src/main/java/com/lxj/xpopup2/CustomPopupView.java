@@ -1,4 +1,4 @@
-package com.lxj.xpopup;
+package com.lxj.xpopup2;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 
 import com.lxj.easyadapter.EasyAdapter;
 import com.lxj.easyadapter.ViewHolder;
+import com.lxj.xpopup.R;
 import com.lxj.xpopup.impl.PartShadowPopupView;
 import com.lxj.xpopup.widget.VerticalRecyclerView;
 

@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
-import com.lxj.xpopup.CustomPopupView;
+import com.lxj.xpopup2.CustomPopupView;
 import com.lxj.xpopup.XPopup;
 import com.mindaxx.zhangp.MainActivity;
 import com.mindaxx.zhangp.R;
