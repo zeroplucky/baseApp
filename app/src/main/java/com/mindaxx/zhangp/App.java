@@ -16,6 +16,7 @@ import com.fanjun.keeplive.config.KeepLiveService;
 import com.minda.logger.AndroidLogAdapter;
 import com.minda.logger.DiskLogAdapter;
 import com.minda.logger.Logger;
+import com.mindaxx.zhangp.http.HttpManager;
 import com.mindaxx.zhangp.imageloader.ProgressManager;
 import com.mindaxx.zhangp.util.SpUtil;
 import com.mindaxx.zhangp.util.UncaughtExceptionHandlerImpl;
@@ -44,6 +45,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         SpUtil.init(getApplicationContext());
+        HttpManager.init(this);
         keepLive();
         initGlide();
         initBugly();
