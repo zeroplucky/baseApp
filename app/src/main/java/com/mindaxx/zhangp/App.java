@@ -46,7 +46,7 @@ public class App extends Application {
         super.onCreate();
         SpUtil.init(getApplicationContext());
         HttpManager.init(this);
-        keepLive();
+//        keepLive();
         initGlide();
         initBugly();
         initLogger();
