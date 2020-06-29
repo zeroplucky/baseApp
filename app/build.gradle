@@ -47,6 +47,17 @@ android {
             }
         }
     }
+//  强制让所有模块都用相同的支持库版本
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            def requested = details.requested
+            if (requested.group == 'com.android.support') {
+                if (!requested.name.startsWith("multidex")) {
+                    details.useVersion '28.0.0'
+                }
+            }
+        }
+    }
 }
 
 
@@ -69,6 +80,8 @@ dependencies {
     implementation project(':okgo')
     implementation project(':keeplive')
     implementation project(':xpopup')
+    implementation project(':scrolllayout')
+    implementation project(':videolib')
     // 异常上报
     implementation 'com.tencent.bugly:crashreport_upgrade:1.4.1'
     // 存储
@@ -87,6 +100,7 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.1.3'
     // 动画
     implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'com.github.florent37:viewanimator:1.1.0'
     // 数据解析
     implementation 'com.google.code.gson:gson:2.8.0'
     // fragment
@@ -95,7 +109,4 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
     // 导航
     implementation 'com.gyf.barlibrary:barlibrary:2.3.0'
-    //动画
-    implementation 'com.github.florent37:viewanimator:1.1.0'
-
 }

@@ -17,7 +17,9 @@
             <option value="$PROJECT_DIR$/library/logger" />
             <option value="$PROJECT_DIR$/library/okgo" />
             <option value="$PROJECT_DIR$/library/permission" />
+            <option value="$PROJECT_DIR$/library/scrolllayout" />
             <option value="$PROJECT_DIR$/library/statusview" />
+            <option value="$PROJECT_DIR$/library/videolib" />
             <option value="$PROJECT_DIR$/library/waitingview" />
             <option value="$PROJECT_DIR$/library/wheelview" />
             <option value="$PROJECT_DIR$/library/xpopup" />

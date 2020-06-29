@@ -19,8 +19,10 @@
       <module fileurl="file://$PROJECT_DIR$/library/okgo/okgo.iml" filepath="$PROJECT_DIR$/library/okgo/okgo.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/permission/permission.iml" filepath="$PROJECT_DIR$/library/permission/permission.iml" />
       <module fileurl="file://$PROJECT_DIR$/permission/permission.iml" filepath="$PROJECT_DIR$/permission/permission.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/scrolllayout/scrolllayout.iml" filepath="$PROJECT_DIR$/library/scrolllayout/scrolllayout.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/statusview/statusview.iml" filepath="$PROJECT_DIR$/library/statusview/statusview.iml" />
       <module fileurl="file://$PROJECT_DIR$/statusview/statusview.iml" filepath="$PROJECT_DIR$/statusview/statusview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/videolib/videolib.iml" filepath="$PROJECT_DIR$/library/videolib/videolib.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/waitingview/waitingview.iml" filepath="$PROJECT_DIR$/library/waitingview/waitingview.iml" />
       <module fileurl="file://$PROJECT_DIR$/waitingview/waitingview.iml" filepath="$PROJECT_DIR$/waitingview/waitingview.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/wheelview/wheelview.iml" filepath="$PROJECT_DIR$/library/wheelview/wheelview.iml" />

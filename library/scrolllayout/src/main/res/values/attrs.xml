@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ScrollingViewHeaderLayout">
+        <attr name="headVisibleMinHeight" format="dimension" />
+        <attr name="isSeriesScroll" format="boolean" />
+        <attr name="headScrollMode">
+            <enum name="snap" value="1" />
+            <enum name="normal" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ScrollingViewHeaderLayout_Layout">
+        <attr name="isHeaderLayout" format="boolean" />
+        <attr name="isScrollingLayout" format="boolean" />
+        <attr name="isFlexibleLayout" format="boolean" />
+        <attr name="flexibleRatio" format="float" />
+        <attr name="isGradientLayout" format="boolean" />
+        <attr name="gradientColor" format="color" />
+    </declare-styleable>
+
+    <!---->
+    <declare-styleable name="MaterialHeader">
+        <attr name="mhPrimaryColor" format="color" />
+        <attr name="mhShadowColor" format="color" />
+        <attr name="mhShadowRadius" format="dimension" />
+        <attr name="mhShowBezierWave" format="boolean" />
+    </declare-styleable>
+
+</resources>
