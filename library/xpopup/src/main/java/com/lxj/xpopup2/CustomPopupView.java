@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 
 import com.lxj.easyadapter.EasyAdapter;
 import com.lxj.easyadapter.ViewHolder;
-import com.lxj.xpopup.R;
+import com.lxj.xpopup2.R;
 import com.lxj.xpopup.impl.PartShadowPopupView;
 import com.lxj.xpopup.widget.VerticalRecyclerView;
 
