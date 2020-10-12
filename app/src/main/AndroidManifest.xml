@@ -89,6 +89,15 @@
                 android:resource="@xml/bugly_provider_paths"
                 tools:replace="name,resource" />
         </provider>
+        <provider
+            android:name=".util.OpenFileProvider"
+            android:authorities="${applicationId}.openfileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/open_file_provider_paths" />
+        </provider>
     </application>
 
 </manifest>
