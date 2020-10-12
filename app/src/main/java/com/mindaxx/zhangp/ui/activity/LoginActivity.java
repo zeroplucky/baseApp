@@ -57,6 +57,7 @@ public class LoginActivity extends BaseMvpActivity {
     public void onlogin() {
         LoadingDailog.start(mContext);
         new Handler(Looper.myLooper()).postDelayed(() -> {
+            LoadingDailog.stopLoading();
             SpUtil.saveIsLogin(true);
             skipActivity(mContext, MainActivity.class);
             finish();
