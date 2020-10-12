@@ -33,10 +33,10 @@
             android:id="@+id/circleProgressBar"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:visibility="gone"
             app:svprogress_roundColor="#e5e5e5"
             app:svprogress_roundProgressColor="@android:color/black"
-            app:svprogress_roundWidth="2dip"
-            android:visibility="gone" />
+            app:svprogress_roundWidth="2dip" />
 
         <TextView
             android:id="@+id/tvMsg"

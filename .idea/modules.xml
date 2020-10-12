@@ -3,30 +3,37 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/library/apkupdater/apkupdater.iml" filepath="$PROJECT_DIR$/library/apkupdater/apkupdater.iml" />
-      <module fileurl="file://$PROJECT_DIR$/apkupdater/apkupdater.iml" filepath="$PROJECT_DIR$/apkupdater/apkupdater.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/autosize/autosize.iml" filepath="$PROJECT_DIR$/library/autosize/autosize.iml" />
-      <module fileurl="file://$PROJECT_DIR$/autosize/autosize.iml" filepath="$PROJECT_DIR$/autosize/autosize.iml" />
       <module fileurl="file://$PROJECT_DIR$/baseApp.iml" filepath="$PROJECT_DIR$/baseApp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/bottombar/bottombar.iml" filepath="$PROJECT_DIR$/library/bottombar/bottombar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/baseApp-app.iml" filepath="$PROJECT_DIR$/app/baseApp-app.iml" group="baseApp/app" />
       <module fileurl="file://$PROJECT_DIR$/bottombar/bottombar.iml" filepath="$PROJECT_DIR$/bottombar/bottombar.iml" />
       <module fileurl="file://$PROJECT_DIR$/../git/baseApp/apkupdater/firupdater.iml" filepath="$PROJECT_DIR$/../git/baseApp/apkupdater/firupdater.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/imagepicker/imagepicker.iml" filepath="$PROJECT_DIR$/library/imagepicker/imagepicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/git-baseApp.iml" filepath="$PROJECT_DIR$/git-baseApp.iml" group="baseApp" />
       <module fileurl="file://$PROJECT_DIR$/imagepicker/imagepicker.iml" filepath="$PROJECT_DIR$/imagepicker/imagepicker.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/keeplive/keeplive.iml" filepath="$PROJECT_DIR$/library/keeplive/keeplive.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/logger/logger.iml" filepath="$PROJECT_DIR$/library/logger/logger.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/apkupdater/library-apkupdater.iml" filepath="$PROJECT_DIR$/library/apkupdater/library-apkupdater.iml" group="baseApp/apkupdater" />
+      <module fileurl="file://$PROJECT_DIR$/library/autosize/library-autosize.iml" filepath="$PROJECT_DIR$/library/autosize/library-autosize.iml" group="baseApp/autosize" />
+      <module fileurl="file://$PROJECT_DIR$/library/bottombar/library-bottombar.iml" filepath="$PROJECT_DIR$/library/bottombar/library-bottombar.iml" group="baseApp/bottombar" />
+      <module fileurl="file://$PROJECT_DIR$/library/imagepicker/library-imagepicker.iml" filepath="$PROJECT_DIR$/library/imagepicker/library-imagepicker.iml" group="baseApp/imagepicker" />
+      <module fileurl="file://$PROJECT_DIR$/library/keeplive/library-keeplive.iml" filepath="$PROJECT_DIR$/library/keeplive/library-keeplive.iml" group="baseApp/keeplive" />
+      <module fileurl="file://$PROJECT_DIR$/library/logger/library-logger.iml" filepath="$PROJECT_DIR$/library/logger/library-logger.iml" group="baseApp/logger" />
+      <module fileurl="file://$PROJECT_DIR$/library/okgo/library-okgo.iml" filepath="$PROJECT_DIR$/library/okgo/library-okgo.iml" group="baseApp/okgo" />
+      <module fileurl="file://$PROJECT_DIR$/library/permission/library-permission.iml" filepath="$PROJECT_DIR$/library/permission/library-permission.iml" group="baseApp/permission" />
+      <module fileurl="file://$PROJECT_DIR$/library/scrolllayout/library-scrolllayout.iml" filepath="$PROJECT_DIR$/library/scrolllayout/library-scrolllayout.iml" group="baseApp/scrolllayout" />
+      <module fileurl="file://$PROJECT_DIR$/library/statusview/library-statusview.iml" filepath="$PROJECT_DIR$/library/statusview/library-statusview.iml" group="baseApp/statusview" />
+      <module fileurl="file://$PROJECT_DIR$/library/videolib/library-videolib.iml" filepath="$PROJECT_DIR$/library/videolib/library-videolib.iml" group="baseApp/videolib" />
+      <module fileurl="file://$PROJECT_DIR$/library/waitingview/library-waitingview.iml" filepath="$PROJECT_DIR$/library/waitingview/library-waitingview.iml" group="baseApp/waitingview" />
+      <module fileurl="file://$PROJECT_DIR$/library/wheelview/library-wheelview.iml" filepath="$PROJECT_DIR$/library/wheelview/library-wheelview.iml" group="baseApp/wheelview" />
+      <module fileurl="file://$PROJECT_DIR$/library/xpopup/library-xpopup.iml" filepath="$PROJECT_DIR$/library/xpopup/library-xpopup.iml" group="baseApp/xpopup" />
       <module fileurl="file://$PROJECT_DIR$/logger/logger.iml" filepath="$PROJECT_DIR$/logger/logger.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/okgo/okgo.iml" filepath="$PROJECT_DIR$/library/okgo/okgo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/permission/permission.iml" filepath="$PROJECT_DIR$/library/permission/permission.iml" />
       <module fileurl="file://$PROJECT_DIR$/permission/permission.iml" filepath="$PROJECT_DIR$/permission/permission.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/scrolllayout/scrolllayout.iml" filepath="$PROJECT_DIR$/library/scrolllayout/scrolllayout.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/statusview/statusview.iml" filepath="$PROJECT_DIR$/library/statusview/statusview.iml" />
-      <module fileurl="file://$PROJECT_DIR$/statusview/statusview.iml" filepath="$PROJECT_DIR$/statusview/statusview.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/videolib/videolib.iml" filepath="$PROJECT_DIR$/library/videolib/videolib.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/waitingview/waitingview.iml" filepath="$PROJECT_DIR$/library/waitingview/waitingview.iml" />
-      <module fileurl="file://$PROJECT_DIR$/waitingview/waitingview.iml" filepath="$PROJECT_DIR$/waitingview/waitingview.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/wheelview/wheelview.iml" filepath="$PROJECT_DIR$/library/wheelview/wheelview.iml" />
-      <module fileurl="file://$PROJECT_DIR$/wheelview/wheelview.iml" filepath="$PROJECT_DIR$/wheelview/wheelview.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/xpopup/xpopup.iml" filepath="$PROJECT_DIR$/library/xpopup/xpopup.iml" />
     </modules>
   </component>

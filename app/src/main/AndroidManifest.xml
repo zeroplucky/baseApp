@@ -50,12 +50,14 @@
         <activity
             android:name=".ui.activity.LoginActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" />
+            android:windowSoftInputMode="stateHidden|stateUnchanged"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|stateUnchanged">
+            android:windowSoftInputMode="stateHidden|stateUnchanged"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -64,10 +66,12 @@
         </activity>
         <activity
             android:name=".ui.activity.ImageDemoActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.activity.RecordActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"></activity>
         <!-- 腾讯bugly -->
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"

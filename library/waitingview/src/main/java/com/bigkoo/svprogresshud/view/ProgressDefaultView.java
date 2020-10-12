@@ -116,6 +116,17 @@ public class ProgressDefaultView extends LinearLayout {
         tvMsg.setVisibility(View.VISIBLE);
     }
 
+
+    public void showBaseStatus2(int res, String string) {
+        clearAnimations();
+        ivSmallLoading.setImageResource(res);
+        tvMsg.setText(string);
+        ivBigLoading.setVisibility(View.GONE);
+        circleProgressBar.setVisibility(View.GONE);
+        ivSmallLoading.setVisibility(View.VISIBLE);
+        tvMsg.setVisibility(View.VISIBLE);
+    }
+
     public void dismiss() {
         clearAnimations();
     }

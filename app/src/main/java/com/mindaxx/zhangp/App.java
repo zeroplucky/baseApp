@@ -50,7 +50,7 @@ public class App extends Application {
         initGlide();
         initBugly();
         initLogger();
-        initCrashThrowable();
+        //initCrashThrowable();
     }
 
     private void initGlide() {

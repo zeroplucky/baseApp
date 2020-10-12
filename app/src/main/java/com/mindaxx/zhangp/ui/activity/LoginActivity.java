@@ -2,12 +2,15 @@ package com.mindaxx.zhangp.ui.activity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bigkoo.svprogresshud.LoadingDailog;
 import com.gyf.barlibrary.ImmersionBar;
 import com.lxj.xpopup2.CustomPopupView;
 import com.lxj.xpopup.XPopup;
@@ -52,9 +55,12 @@ public class LoginActivity extends BaseMvpActivity {
 
     @OnClick(R.id.btn_login)
     public void onlogin() {
-        SpUtil.saveIsLogin(true);
-        skipActivity(mContext, MainActivity.class);
-        finish();
+        LoadingDailog.start(mContext);
+        new Handler(Looper.myLooper()).postDelayed(() -> {
+            SpUtil.saveIsLogin(true);
+            skipActivity(mContext, MainActivity.class);
+            finish();
+        }, 1000);
     }
 
     @OnClick(R.id.set_up_ip)
@@ -71,18 +77,6 @@ public class LoginActivity extends BaseMvpActivity {
                 Toast.makeText(getApplicationContext(), URL2.BASE_URL, Toast.LENGTH_LONG).show();
             }
         }).setNegativeButton("取消", null).show();
-    }
-
-    // 类淘宝下来选择
-    private void popupWindown(View op, String[] content) {
-        new XPopup.Builder(this)
-                .atView(op).offsetY(SizeUtils.px2dp(1))
-                .asCustom(new CustomPopupView(mContext, op, content, new CustomPopupView.OnSelectListener2() {
-                    @Override
-                    public void onSelect(int id, String data) {
-                        Toast.makeText(mContext, "  " + id + " . " + data, Toast.LENGTH_SHORT).show();
-                    }
-                })).show();
     }
 
 }

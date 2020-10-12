@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ @时间 20-8-27 下午5:56
+  ~ @作者 Administrator
+  -->
+<animated-rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/dialog_loading_img"
+    android:pivotX="50%"
+    android:pivotY="50%" />
